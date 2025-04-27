@@ -30,25 +30,32 @@ public class Portillo_Edwin_Proyecto_Tienda {
                 System.out.println("Opción inválida. Ingrese un número entero:");
                 scanner.next();
             }
+            
             opcion = scanner.nextInt();
 
             //Opciones del menú mostrado previamente
             switch(opcion) {
                 case 1:
                     System.out.println("Abrir caja seleccionado.");             
-                    System.out.println("Ingrese la cantidad de efectivo en Lempiras que desea guardar en la caja:");
-                    efectivoIngresado = scanner.nextDouble();
                     
                     // Bucle para asegurar que la cantidad ingresada sea válida
                     while (efectivoIngresado <= 0) {
-                        System.out.println("Favor ingrese una cantidad de dinero válida (debe ser mayor que 0).");
-                        efectivoIngresado = scanner.nextDouble();
+                         System.out.println("Ingrese la cantidad de efectivo en Lempiras que desea guardar en la caja (debe ser mayor que 0):");
+                         
+                         while (!scanner.hasNextDouble()){
+                             System.out.println("Opción inválida. Ingrese un dato númerico:");
+                             scanner.next();
+                         }
+                         
+                         efectivoIngresado = scanner.nextDouble();
+                         
                     }
                     
                     // Actualizar el total y mostrar los datos
                     efectivoTotal += efectivoIngresado;
                     System.out.println("Usted guardó Lps." + efectivoIngresado);
                     System.out.println("El efectivo total en caja es de Lps." + efectivoTotal);
+                    efectivoIngresado = 0;
                     break;
                      
                 case 2:
