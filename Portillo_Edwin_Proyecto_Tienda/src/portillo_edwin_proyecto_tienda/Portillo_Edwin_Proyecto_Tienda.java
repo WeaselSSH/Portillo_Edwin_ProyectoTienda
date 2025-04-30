@@ -52,17 +52,17 @@ public class Portillo_Edwin_Proyecto_Tienda {
                         break;
 
                     case 2:
-                        //Declaración de variables para venta de productos
+                        //Variables principales
                         String tipoCliente, seguirComprando;
                         int codigoProducto, porcentajeDescuento, numeroFactura = 0, porcentajeISV = 7;
                         double descuento, precioTotal, isv, cantidadKilos = 0, precioSubtotal = 0;
-                        double kilosAzucarComprados = 0, kilosAvenaComprados = 0, kilosTrigoComprados = 0, kilosMaizComprados = 0;
+                        
+                        //Datos por producto
+                        double kilosAzucarVendidos = 0, kilosAvenaVendidos = 0, kilosTrigoVendidos = 0, kilosMaizVendidos = 0;
                         double precioVentaAzucar = 30, precioVentaAvena = 25, precioVentaTrigo = 32, precioVentaMaiz = 20;
                         double precioTotalAzucar = 0, precioTotalAvena = 0, precioTotalTrigo = 0, precioTotalMaiz = 0;
 
-
                         System.out.println("Ventas seleccionado.");
-
                         System.out.println("Favor ingrese el tipo de cliente (A, B, C):");
                         tipoCliente = scanner.next().strip().toUpperCase();
 
@@ -87,304 +87,133 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                 scanner.next();
                             }
                             codigoProducto = scanner.nextInt();
-
-                            //Switch-case acorde al tipo del cliente
-                            switch (tipoCliente) {
-                                case "A":
-                                    switch (codigoProducto) {
-                                        case 1: 
-                                            System.out.println("Nombre del producto: Azúcar.");
-                                            System.out.println("Precio unitario (kg): Lps." + precioVentaAzucar);
-
-                                            //Pedir la cantidad de kilos a comprar y validar que sea mayor a 0
-                                            while (cantidadKilos <= 0) {
-                                                System.out.println("Ingrese la cantidad de kilos a comprar (debe ser mayor que 0):"); 
-
-                                                while (!scanner.hasNextDouble()) {
-                                                    System.out.println("Opción inválida. Ingrese un número válido para los kilos:");
-                                                    scanner.next();
-                                                }
-
-                                                cantidadKilos = scanner.nextDouble();
+                            
+                            switch (codigoProducto){
+                                case 1:
+                                    if (tipoCliente.equals("C")) {
+                                        System.out.println("El cliente tipo 'C' no puede comprar Azúcar");
+                                    } else {
+                                        System.out.println("Nombre del producto: Azúcar.");
+                                        System.out.println("Precio unitario (kg): Lps." + precioVentaAzucar);
+                                        //Pedir la cantidad de kilos a comprar y validar que sea mayor a 0
+                                        while (cantidadKilos <= 0) {
+                                            System.out.println("Ingrese la cantidad de kilos a comprar (debe ser mayor que 0):"); 
+                                            while (!scanner.hasNextDouble()) {
+                                                System.out.println("Opción inválida. Ingrese un número válido para los kilos:");
+                                                scanner.next();
                                             }
-
-                                            //Realizar cálculo de los precios y devolver la variable kilos a 0
-                                            precioTotalAzucar += (cantidadKilos * precioVentaAzucar);
-                                            kilosAzucarComprados += cantidadKilos;
-                                            precioSubtotal += (cantidadKilos * precioVentaAzucar);
-                                            cantidadKilos = 0;
-
-                                            //Preguntar si el cliente desea seguir comprando o no
-                                            System.out.println("Si desea dejar de comprar productos presione 'N', de lo contrario presione cualquier otra tecla.");
-                                            seguirComprando = scanner.next().strip();
-
-                                            if(seguirComprando.equalsIgnoreCase("N")) {
-                                                continuarComprando = false;
-                                            } 
-
-                                            break;
-
-                                        case 2: 
-                                            System.out.println("Nombre del producto: Avena.");
-                                            System.out.println("Precio unitario (kg): Lps." + precioVentaAvena);
-
-                                            //Pedir la cantidad de kilos a comprar y validar que sea mayor a 0
-                                            while (cantidadKilos <= 0) {
-                                                System.out.println("Ingrese la cantidad de kilos a comprar (debe ser mayor que 0):"); 
-
-                                                while (!scanner.hasNextDouble()) {
-                                                    System.out.println("Opción inválida. Ingrese un número válido para los kilos:");
-                                                    scanner.next();
-                                                }
-
-                                                cantidadKilos = scanner.nextDouble();
-                                            }
-
-                                            //Realizar cálculo de los precios y devolver la variable kilos a 0
-                                            precioTotalAvena += (cantidadKilos * precioVentaAvena);
-                                            kilosAvenaComprados += cantidadKilos;
-                                            precioSubtotal += (cantidadKilos * precioVentaAvena);
-                                            cantidadKilos = 0;
-
-                                            //Preguntar si el cliente desea seguir comprando o no
-                                            System.out.println("Si desea dejar de comprar productos presione 'N', de lo contrario presione cualquier otra tecla.");
-                                            seguirComprando = scanner.next().strip();
-
-                                            if(seguirComprando.equalsIgnoreCase("N")) {
-                                                continuarComprando = false;
-                                            } 
-
-                                            break;
-
-                                        case 3: 
-                                            System.out.println("Nombre del producto: Trigo.");
-                                            System.out.println("Precio unitario (kg): Lps." + precioVentaTrigo);
-
-                                            //Pedir la cantidad de kilos a comprar y validar que sea mayor a 0
-                                            while (cantidadKilos <= 0) {
-                                                System.out.println("Ingrese la cantidad de kilos a comprar (debe ser mayor que 0):"); 
-
-                                                while (!scanner.hasNextDouble()) {
-                                                    System.out.println("Opción inválida. Ingrese un número válido para los kilos:");
-                                                    scanner.next();
-                                                }
-
-                                                cantidadKilos = scanner.nextDouble();
-                                            }
-
-                                            //Realizar cálculo de los precios y devolver la variable kilos a 0
-                                            precioTotalTrigo += (cantidadKilos * precioVentaTrigo);
-                                            kilosTrigoComprados += cantidadKilos;
-                                            precioSubtotal += (cantidadKilos * precioVentaTrigo);
-                                            cantidadKilos = 0;
-
-                                            //Preguntar si el cliente desea seguir comprando o no
-                                            System.out.println("Si desea dejar de comprar productos presione 'N', de lo contrario presione cualquier otra tecla.");
-                                            seguirComprando = scanner.next().strip();
-
-                                            if(seguirComprando.equalsIgnoreCase("N")) {
-                                                continuarComprando = false;
-                                            } 
-
-                                            break;
-
-                                        case 4: 
-                                            System.out.println("Nombre del producto: Maíz.");
-                                            System.out.println("Precio unitario (kg): Lps." + precioVentaMaiz);
-
-                                            //Pedir la cantidad de kilos a comprar y validar que sea mayor a 0
-                                            while (cantidadKilos <= 0) {
-                                               System.out.println("Ingrese la cantidad de kilos a comprar (debe ser mayor que 0):"); 
-
-                                                while (!scanner.hasNextDouble()) {
-                                                    System.out.println("Opción inválida. Ingrese un número válido para los kilos:");
-                                                    scanner.next();
-                                                }
-
-                                                cantidadKilos = scanner.nextDouble();
-                                            }
-
-                                            //Realizar cálculo de los precios y devolver la variable kilos a 0
-                                            precioTotalMaiz += (cantidadKilos * precioVentaMaiz);
-                                            kilosMaizComprados += cantidadKilos;
-                                            precioSubtotal += (cantidadKilos * precioVentaMaiz);
-                                            cantidadKilos = 0;
-
-                                            //Preguntar si el cliente desea seguir comprando o no
-                                            System.out.println("Si desea dejar de comprar productos presione 'N', de lo contrario presione cualquier otra tecla.");
-                                            seguirComprando = scanner.next().strip();
-
-                                            if(seguirComprando.equalsIgnoreCase("N")) {
-                                                continuarComprando = false;
-                                            } 
-
-                                            break;
-
-                                        default: 
-                                            System.out.println("Producto no encontrado.");
-                                    }
+                                            
+                                            cantidadKilos = scanner.nextDouble();   
+                                        }
+                                        //Realizar cálculo de los precios y devolver la variable kilos a 0
+                                        precioTotalAzucar += (cantidadKilos * precioVentaAzucar);
+                                        kilosAzucarVendidos += cantidadKilos;
+                                        precioSubtotal += (cantidadKilos * precioVentaAzucar);
+                                        cantidadKilos = 0;
+                                        //Preguntar si el cliente desea seguir comprando o no
+                                        System.out.println("Si desea dejar de comprar productos presione 'N', de lo contrario presione cualquier otra tecla.");
+                                        seguirComprando = scanner.next().strip();
+                                        if(seguirComprando.equalsIgnoreCase("N")) {
+                                            continuarComprando = false;
+                                        }
+                                    }  
                                     break;
-
-                                case "B":
-                                    switch (codigoProducto) {
-                                        case 1: 
-                                            System.out.println("Nombre del producto: Azúcar.");
-                                            System.out.println("Precio unitario (kg): Lps." + precioVentaAzucar);
-
-                                            //Pedir la cantidad de kilos a comprar y validar que sea mayor a 0
-                                            while (cantidadKilos <= 0) {
-                                               System.out.println("Ingrese la cantidad de kilos a comprar (debe ser mayor que 0):"); 
-
-                                                while (!scanner.hasNextDouble()) {
-                                                    System.out.println("Opción inválida. Ingrese un número válido para los kilos:");
-                                                    scanner.next();
-                                                }
-
-                                               cantidadKilos = scanner.nextDouble();
+                                
+                                case 2:
+                                    if (tipoCliente.equals("C")) {
+                                        System.out.println("El cliente tipo 'C' no puede comprar Avena");
+                                    } else {
+                                        System.out.println("Nombre del producto: Avena.");
+                                        System.out.println("Precio unitario (kg): Lps." + precioVentaAvena);
+                                        //Pedir la cantidad de kilos a comprar y validar que sea mayor a 0
+                                        while (cantidadKilos <= 0) {
+                                            System.out.println("Ingrese la cantidad de kilos a comprar (debe ser mayor que 0):"); 
+                                            while (!scanner.hasNextDouble()) {
+                                                System.out.println("Opción inválida. Ingrese un número válido para los kilos:");
+                                                scanner.next();
                                             }
-
-                                            //Realizar cálculo de los precios y devolver la variable kilos a 0
-                                            precioTotalAzucar += (cantidadKilos * precioVentaAzucar);
-                                            kilosAzucarComprados += cantidadKilos;
-                                            precioSubtotal += (cantidadKilos * precioVentaAzucar);
-                                            cantidadKilos = 0;
-
-                                            //Preguntar si el cliente desea seguir comprando o no
-                                            System.out.println("Si desea dejar de comprar productos presione 'N', de lo contrario presione cualquier otra tecla.");
-                                            seguirComprando = scanner.next().strip();
-
-                                            if(seguirComprando.equalsIgnoreCase("N")) {
-                                                continuarComprando = false;
-                                            } 
-
-                                            break;
-
-                                        case 2: 
-                                            System.out.println("Nombre del producto: Avena.");
-                                            System.out.println("Precio unitario (kg): Lps." + precioVentaAvena);
-
-                                            //Pedir la cantidad de kilos a comprar y validar que sea mayor a 0
-                                            while (cantidadKilos <= 0) {
-                                                System.out.println("Ingrese la cantidad de kilos a comprar (debe ser mayor que 0):"); 
-
-                                                while (!scanner.hasNextDouble()) {
-                                                    System.out.println("Opción inválida. Ingrese un número válido para los kilos:");
-                                                    scanner.next();
-                                                }
-
-                                                cantidadKilos = scanner.nextDouble();
-                                            }
-
-                                            //Realizar cálculo de los precios y devolver la variable kilos a 0
-                                            precioTotalAvena += (cantidadKilos * precioVentaAvena);
-                                            kilosAvenaComprados += cantidadKilos;
-                                            precioSubtotal += (cantidadKilos * precioVentaAvena);
-                                            cantidadKilos = 0;
-
-                                            //Preguntar si el cliente desea seguir comprando o no
-                                            System.out.println("Si desea dejar de comprar productos presione 'N', de lo contrario presione cualquier otra tecla.");
-                                            seguirComprando = scanner.next().strip();
-
-                                            if(seguirComprando.equalsIgnoreCase("N")) {
-                                                continuarComprando = false;
-                                            } 
-
-                                            break;
-
-                                        case 3: 
-                                            System.out.println("Nombre del producto: Trigo.");
-                                            System.out.println("Precio unitario (kg): Lps." + precioVentaTrigo);
-
-                                            //Pedir la cantidad de kilos a comprar y validar que sea mayor a 0
-                                            while (cantidadKilos <= 0) {
-                                                System.out.println("Ingrese la cantidad de kilos a comprar (debe ser mayor que 0):"); 
-
-                                                while (!scanner.hasNextDouble()) {
-                                                    System.out.println("Opción inválida. Ingrese un número válido para los kilos:");
-                                                    scanner.next();
-                                                }
-
-                                                cantidadKilos = scanner.nextDouble();
-                                            }
-
-                                            //Realizar cálculo de los precios y devolver la variable kilos a 0
-                                            precioTotalTrigo += (cantidadKilos * precioVentaTrigo);
-                                            kilosTrigoComprados += cantidadKilos;
-                                            precioSubtotal += (cantidadKilos * precioVentaTrigo);
-                                            cantidadKilos = 0;
-
-                                            //Preguntar si el cliente desea seguir comprando o no
-                                            System.out.println("Si desea dejar de comprar productos presione 'N', de lo contrario presione cualquier otra tecla.");
-                                            seguirComprando = scanner.next().strip();
-
-                                            if(seguirComprando.equalsIgnoreCase("N")) {
-                                                continuarComprando = false;
-                                            } 
-
-                                            break;
-
-                                        case 4:
-                                            System.out.println("El cliente tipo B no puede comprar maíz.");
-                                            break;
-
-                                        default: 
-                                            System.out.println("Producto no encontrado.");
-                                    }
+                                            
+                                            cantidadKilos = scanner.nextDouble();   
+                                        }
+                                        //Realizar cálculo de los precios y devolver la variable kilos a 0
+                                        precioTotalAvena += (cantidadKilos * precioVentaAvena);
+                                        kilosAvenaVendidos += cantidadKilos;
+                                        precioSubtotal += (cantidadKilos * precioVentaAvena);
+                                        cantidadKilos = 0;
+                                        //Preguntar si el cliente desea seguir comprando o no
+                                        System.out.println("Si desea dejar de comprar productos presione 'N', de lo contrario presione cualquier otra tecla.");
+                                        seguirComprando = scanner.next().strip();
+                                        if(seguirComprando.equalsIgnoreCase("N")) {
+                                            continuarComprando = false;
+                                        }
+                                    }  
                                     break;
-
-                                case "C":
-                                    switch (codigoProducto) {
-                                        case 1: 
-                                            System.out.println("El cliente tipo C no puede comprar azúcar.");
-                                            break;
-
-                                        case 2:
-                                            System.out.println("El cliente tipo C no puede comprar avena.");
-                                            break;
-
-                                        case 3:
-                                            System.out.println("El cliente tipo C no puede comprar trigo.");
-                                            break;
-
-                                        case 4: 
-                                            System.out.println("Nombre del producto: Maíz.");
-                                            System.out.println("Precio unitario (kg): Lps." + precioVentaMaiz);
-
-                                            //Pedir la cantidad de kilos a comprar y validar que sea mayor a 0
-                                            while (cantidadKilos <= 0) {
-                                                System.out.println("Ingrese la cantidad de kilos a comprar (debe ser mayor que 0):"); 
-
-                                                while (!scanner.hasNextDouble()) {
-                                                    System.out.println("Opción inválida. Ingrese un número válido para los kilos:");
-                                                    scanner.next();
-                                                }
-
-                                                cantidadKilos = scanner.nextDouble();
+                                
+                                case 3: 
+                                    if (tipoCliente.equals("C")) {
+                                        System.out.println("El cliente tipo 'C' no puede comprar Trigo");
+                                    } else {
+                                        System.out.println("Nombre del producto: Trigo.");
+                                        System.out.println("Precio unitario (kg): Lps." + precioVentaTrigo);
+                                        //Pedir la cantidad de kilos a comprar y validar que sea mayor a 0
+                                        while (cantidadKilos <= 0) {
+                                            System.out.println("Ingrese la cantidad de kilos a comprar (debe ser mayor que 0):"); 
+                                            while (!scanner.hasNextDouble()) {
+                                                System.out.println("Opción inválida. Ingrese un número válido para los kilos:");
+                                                scanner.next();
                                             }
-
-                                            //Realizar cálculo de los precios y devolver la variable kilos a 0
-                                            precioTotalMaiz += (cantidadKilos * precioVentaMaiz);
-                                            kilosMaizComprados += cantidadKilos;
-                                            precioSubtotal += (cantidadKilos * precioVentaMaiz);
-                                            cantidadKilos = 0;
-
-                                            //Preguntar si el cliente desea seguir comprando o no
-                                            System.out.println("Si desea dejar de comprar productos presione 'N', de lo contrario presione cualquier otra tecla.");
-                                            seguirComprando = scanner.next().strip();
-
-                                            if(seguirComprando.equalsIgnoreCase("N")) {
-                                                continuarComprando = false;
-                                            } 
-
-                                            break;
-
-                                        default: 
-                                            System.out.println("Producto no encontrado.");
-                                    }
+                                            
+                                            cantidadKilos = scanner.nextDouble();   
+                                        }
+                                        //Realizar cálculo de los precios y devolver la variable kilos a 0
+                                        precioTotalTrigo += (cantidadKilos * precioVentaTrigo);
+                                        kilosTrigoVendidos += cantidadKilos;
+                                        precioSubtotal += (cantidadKilos * precioVentaTrigo);
+                                        cantidadKilos = 0;
+                                        //Preguntar si el cliente desea seguir comprando o no
+                                        System.out.println("Si desea dejar de comprar productos presione 'N', de lo contrario presione cualquier otra tecla.");
+                                        seguirComprando = scanner.next().strip();
+                                        if(seguirComprando.equalsIgnoreCase("N")) {
+                                            continuarComprando = false;
+                                        }
+                                    }  
                                     break;
-
+                                
+                                case 4:
+                                    if (tipoCliente.equals("B")) {
+                                        System.out.println("El cliente tipo 'B' no puede comprar Maíz");
+                                    } else {
+                                        System.out.println("Nombre del producto: Maíz.");
+                                        System.out.println("Precio unitario (kg): Lps." + precioVentaMaiz);
+                                        //Pedir la cantidad de kilos a comprar y validar que sea mayor a 0
+                                        while (cantidadKilos <= 0) {
+                                            System.out.println("Ingrese la cantidad de kilos a comprar (debe ser mayor que 0):"); 
+                                            while (!scanner.hasNextDouble()) {
+                                                System.out.println("Opción inválida. Ingrese un número válido para los kilos:");
+                                                scanner.next();
+                                            }
+                                            
+                                            cantidadKilos = scanner.nextDouble();   
+                                        }
+                                        //Realizar cálculo de los precios y devolver la variable kilos a 0
+                                        precioTotalMaiz += (cantidadKilos * precioVentaMaiz);
+                                        kilosMaizVendidos += cantidadKilos;
+                                        precioSubtotal += (cantidadKilos * precioVentaMaiz);
+                                        cantidadKilos = 0;
+                                        //Preguntar si el cliente desea seguir comprando o no
+                                        System.out.println("Si desea dejar de comprar productos presione 'N', de lo contrario presione cualquier otra tecla.");
+                                        seguirComprando = scanner.next().strip();
+                                        if(seguirComprando.equalsIgnoreCase("N")) {
+                                            continuarComprando = false;
+                                        }
+                                    }  
+                                    break;
+                                    
+                                default:
+                                    System.out.println("Código de producto inválido.");
+                                    break;
                             }
-
+                            
                             //Proceso de Facturación
                             if (!continuarComprando) {
                                 numeroFactura += 1; 
@@ -393,36 +222,31 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                 System.out.println("Productos comprados:" );
 
                                 //Se verifica si el usuario compró dicho producto y en caso de haberlo comprado se despliega los datos.
-                                if (kilosAzucarComprados > 0) {
+                                if (kilosAzucarVendidos > 0) {
                                     System.out.printf("Azúcar: %.2f kg. | Precio unitario: Lps. %.2f | Precio total: Lps. %.2f\n", 
-                                                    kilosAzucarComprados, precioVentaAzucar, precioTotalAzucar);
+                                                    kilosAzucarVendidos, precioVentaAzucar, precioTotalAzucar);
                                 }
 
-                                if (kilosAvenaComprados > 0) {
+                                if (kilosAvenaVendidos > 0) {
                                     System.out.printf("Avena: %.2f kg. | Precio unitario: Lps. %.2f | Precio total: Lps. %.2f\n", 
-                                                    kilosAvenaComprados, precioVentaAvena, precioTotalAvena);
+                                                    kilosAvenaVendidos, precioVentaAvena, precioTotalAvena);
                                 }
 
-                                if (kilosTrigoComprados > 0) {
+                                if (kilosTrigoVendidos > 0) {
                                     System.out.printf("Trigo: %.2f kg. | Precio unitario: Lps. %.2f | Precio total: Lps. %.2f\n", 
-                                                    kilosTrigoComprados, precioVentaTrigo, precioTotalTrigo);
+                                                    kilosTrigoVendidos, precioVentaTrigo, precioTotalTrigo);
                                 }
 
-                                if (kilosMaizComprados > 0) {
+                                if (kilosMaizVendidos > 0) {
                                     System.out.printf("Maíz: %.2f kg. | Precio unitario: Lps. %.2f | Precio total: Lps. %.2f\n", 
-                                                    kilosMaizComprados, precioVentaMaiz, precioTotalMaiz);
+                                                    kilosMaizVendidos, precioVentaMaiz, precioTotalMaiz);
                                 }
 
                                 System.out.printf("Subtotal a pagar: Lps. %.2f\n", precioSubtotal);
 
                                 //Calculo del descuento, ISV y total a pagar
-                                if (precioSubtotal > 5000){
-                                    porcentajeDescuento = 10;
-                                } else if (precioSubtotal >= 1000) {
-                                    porcentajeDescuento = 5;
-                                } else {
-                                    porcentajeDescuento = 0;
-                                }
+                                porcentajeDescuento = (precioSubtotal > 5000) ? 10 :
+                                                      (precioSubtotal >= 1000) ? 5 : 0;
 
                                 descuento = precioSubtotal * (porcentajeDescuento / 100.0);
                                 isv = precioSubtotal * (porcentajeISV/100.0);
@@ -431,6 +255,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                 System.out.printf("Descuento aplicado: %d%% (Lps. %.2f)\n", porcentajeDescuento, descuento);
                                 System.out.printf("ISV aplicado: %d%% (Lps. %.2f)\n", porcentajeISV, isv);
                                 System.out.printf("Total a pagar: Lps. %.2f\n", precioTotal);
+                                System.out.println("");
 
                                 efectivoTotal += precioTotal; //Incremento del dinero en caja   
 
