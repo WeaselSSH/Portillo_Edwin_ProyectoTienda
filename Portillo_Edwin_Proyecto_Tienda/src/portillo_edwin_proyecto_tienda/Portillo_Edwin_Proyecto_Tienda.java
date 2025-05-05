@@ -16,7 +16,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
         String seguirComprando, nombreProducto = "";
         int codigoProducto, porcentajeDescuento;
         double descuento, precioTotal, isv, totalCompra, cantidadKilos = 0, precioSubtotal = 0, precioUnitario = 0;
-        boolean continuarComprando;
+        boolean continuarComprando, cajaAbierta = false;
         double precioTotalAzucar = 0, precioTotalAvena = 0, precioTotalTrigo = 0, precioTotalMaiz = 0;
         
         //Menú de inicio
@@ -56,9 +56,16 @@ public class Portillo_Edwin_Proyecto_Tienda {
                         System.out.printf("Usted guardó Lps.%.2f\n", efectivoIngresado);
                         System.out.printf("El efectivo total en caja es de Lps.%.2f\n", efectivoTotal);
                         efectivoIngresado = 0;
+                        cajaAbierta = true;
                         break;
 
                     case 2: 
+                        //Verificación que haya efectivo en caja
+                        if (!cajaAbierta) {
+                            System.out.println("Debe depositar efectivo en caja antes de realizar ventas.");
+                            break;
+                        }
+                        
                         //Variables principales
                         String tipoCliente;
                         int numeroFacturaVentas = 0;
@@ -217,6 +224,12 @@ public class Portillo_Edwin_Proyecto_Tienda {
                         break;
 
                     case 3:
+                        //Verificación que haya efectivo en caja
+                        if (!cajaAbierta) {
+                            System.out.println("Debe depositar efectivo en caja antes de realizar compras.");
+                            break;
+                        }
+                        
                         System.out.println("Compras seleccionado");
                         //Variables principales
                         String tipoProveedor;
@@ -370,10 +383,20 @@ public class Portillo_Edwin_Proyecto_Tienda {
                         break;
 
                     case 4:
+                        //Verificación que haya efectivo en caja
+                        if (!cajaAbierta) {
+                            System.out.println("Debe depositar efectivo en caja antes de crear un reporte.");
+                            break;
+                        }
                         System.out.println("Reportes seleccionado");
                         break;
 
                     case 5: 
+                        //Verificación que haya efectivo en caja
+                        if (!cajaAbierta) {
+                            System.out.println("Debe depositar efectivo en caja antes de cerrar caja.");
+                            break;
+                        }
                         System.out.println("Cierre de caja seleccionado");
                         break;
 
