@@ -16,6 +16,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
         //Declaración de variable compra y venta
         String seguirComprando, nombreProducto = "";
         int codigoProducto, porcentajeDescuento;
+        double stockAzucar = 5, stockAvena = 0, stockTrigo = 0, stockMaiz = 0;
         double descuento, precioTotal, isv, totalCompra, cantidadKilos = 0, precioSubtotal = 0, precioUnitario = 0;
         boolean continuarComprando, cajaAbierta = false;
         double precioTotalAzucar = 0, precioTotalAvena = 0, precioTotalTrigo = 0, precioTotalMaiz = 0;
@@ -67,10 +68,16 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             System.out.println("Debe depositar efectivo en caja antes de realizar ventas.");
                             break;
                         }
+                        
+                        if (stockAzucar <= 0 && stockAvena <= 0 && stockTrigo <= 0 && stockMaiz <= 0) {
+                            System.out.println("No hay productos en stock.");
+                            break;
+                        }
 
                         //Variables principales
                         String tipoCliente;
                         int numeroFacturaVentas = 0;
+                        double stockDisponible = 0;
 
                         //Datos por producto
                         double kilosAzucarVendidos = 0, kilosAvenaVendidos = 0, kilosTrigoVendidos = 0, kilosMaizVendidos = 0;
@@ -104,64 +111,84 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             boolean permitido = true;
                             switch (codigoProducto){
                                 case 1:
-                                    if(tipoCliente.equals("C")) {
+                                    if (tipoCliente.equals("C")) {
                                         System.out.println("Cliente 'C' no puede comprar azúcar.");
+                                        permitido = false;
+                                    } else if (stockAzucar <= 0) {
+                                        System.out.println("No hay azúcar en stock.");
                                         permitido = false;
                                     } else {
                                         nombreProducto = "Azúcar";
                                         precioUnitario = 30;
+                                        stockDisponible = stockAzucar;
                                     }
                                     break;
 
                                 case 2:
-                                    if(tipoCliente.equals("C")) {
+                                    if (tipoCliente.equals("C")) {
                                         System.out.println("Cliente 'C' no puede comprar avena.");
+                                        permitido = false;
+                                    } else if (stockAvena <= 0) {
+                                        System.out.println("No hay avena en stock.");
                                         permitido = false;
                                     } else {
                                         nombreProducto = "Avena";
                                         precioUnitario = 25;
+                                        stockDisponible = stockAvena;
                                     }
                                     break;
 
                                 case 3:
-                                    if(tipoCliente.equals("C")) {
+                                    if (tipoCliente.equals("C")) {
                                         System.out.println("Cliente 'C' no puede comprar trigo.");
+                                        permitido = false;
+                                    } else if (stockTrigo <= 0) {
+                                        System.out.println("No hay trigo en stock.");
                                         permitido = false;
                                     } else {
                                         nombreProducto = "Trigo";
                                         precioUnitario = 32;
+                                        stockDisponible = stockTrigo;
                                     }
                                     break;
 
                                 case 4:
-                                    if(tipoCliente.equals("B")) {
+                                    if (tipoCliente.equals("B")) {
                                         System.out.println("Cliente 'B' no puede comprar maíz.");
+                                        permitido = false;
+                                    } else if (stockAvena <= 0) {
+                                        System.out.println("No hay maíz en stock.");
                                         permitido = false;
                                     } else {
                                         nombreProducto = "Maíz";
                                         precioUnitario = 20;
+                                        stockDisponible = stockMaiz;
                                     }
                                     break;
-
                                 default:
                                     System.out.println("Código de producto inválido.");
                                     permitido = false;
                                     break;
                             }
 
-                            //Proceso de Facturación
                             if (permitido) {
                                 System.out.printf("Nombre del producto: %s\n", nombreProducto);
                                 System.out.printf("Precio unitario (kg): Lps. %.2f\n", precioUnitario);
 
-                                while (cantidadKilos <= 0){
-                                    System.out.println("Ingrese la cantidad de kilos a comprar (debe ser mayor que 0):\n");
+                                while (cantidadKilos <= 0 || cantidadKilos > stockDisponible){
+                                    System.out.println("Ingrese la cantidad de kilos a comprar:");
+                                    
                                     while (!scanner.hasNextDouble()) {
-                                        System.out.println("Valor inválido. Ingrese solo datos numéricos:");
+                                        System.out.println("Valor inválido. Favor ingrese solo datos numéricos:");
                                         scanner.next();
                                     }
-
                                     cantidadKilos = scanner.nextDouble();
+                                    
+                                    if (cantidadKilos <= 0) {
+                                        System.out.println("Error: La cantidad debe ser mayor a 0.");
+                                    } else if (cantidadKilos > stockDisponible) {
+                                        System.out.println(String.format("No hay suficiente %s. Stock actual: %.2f kg", nombreProducto, stockDisponible));
+                                    }
                                 }
 
                                 totalCompra = cantidadKilos * precioUnitario;
@@ -171,18 +198,22 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                     case 1:
                                         kilosAzucarVendidos += cantidadKilos;
                                         precioTotalAzucar += totalCompra;
+                                        stockAzucar -= cantidadKilos;
                                         break;
                                     case 2:
                                         kilosAvenaVendidos += cantidadKilos;
                                         precioTotalAvena += totalCompra;
+                                        stockAvena -= cantidadKilos;
                                         break;
                                     case 3:
                                         kilosTrigoVendidos += cantidadKilos;
                                         precioTotalTrigo += totalCompra;
+                                        stockTrigo -= cantidadKilos;
                                         break;
                                     case 4:
                                         kilosMaizVendidos += cantidadKilos;
                                         precioTotalMaiz += totalCompra;
+                                        stockMaiz -= cantidadKilos;
                                         break;
                                 }
 
