@@ -262,8 +262,11 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             System.out.println("Debe depositar efectivo en caja antes de realizar compras.");
                             break;
                         }
-
-                        System.out.println("Compras seleccionado");
+                        
+                        if (efectivoTotal <= 0) {
+                            System.out.println("No hay efectivo en caja.");
+                            break;
+                        }
                         //Variables principales
                         String tipoProveedor;
                         int numeroFacturaProveedor = 0;
@@ -387,7 +390,15 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             }
                         }
 
-                        if (precioSubtotal > 0) {
+                        if (precioSubtotal > 0) {                          
+                            isv = precioSubtotal * 0.07;
+                            precioTotal = precioSubtotal + isv;
+                            
+                            if (efectivoTotal < precioTotal) {
+                                System.out.println("Error: no hay efectivo suficiento en caja.");
+                                break;
+                            }
+                            
                             numeroFacturaProveedor ++;
                             System.out.println("-------Factura-------\n");
                             System.out.printf("No. Factura: %d\n", numeroFacturaProveedor);
@@ -402,13 +413,11 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                 System.out.printf("Maíz: %.2f kg | Precio Unitario: Lps. 20.00 | Total: Lps. %.2f\n", kilosMaizComprados, precioTotalMaiz);
 
                             System.out.printf("Subtotal: Lps. %.2f\n", precioSubtotal);
-
-                            isv = precioSubtotal * 0.07;
-                            precioTotal = precioSubtotal + isv;
-                            efectivoTotal -= precioTotal;
-
                             System.out.printf("ISV: 7%% (Lps. %.2f)\n", isv);
                             System.out.printf("Total a pagar: %.2f\n", precioTotal);
+                            
+                            efectivoTotal -= precioTotal;
+                            
                         } else {
                             System.out.println("No se realizaron compras.");
                         }
