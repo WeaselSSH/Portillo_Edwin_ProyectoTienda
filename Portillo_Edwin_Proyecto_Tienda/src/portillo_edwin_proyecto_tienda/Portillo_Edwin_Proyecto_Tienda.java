@@ -47,6 +47,11 @@ public class Portillo_Edwin_Proyecto_Tienda {
 
                             try{
                                 efectivoIngresado = scanner.nextDouble();
+                                
+                                if (efectivoIngresado <= 0) {
+                                    System.out.println("Error: la cantidad debe ser mayor a 0.");
+                                }
+                                
                             } catch (InputMismatchException e) {
                                 System.out.println("Opción inválida.");
                                 scanner.next();
