@@ -14,12 +14,12 @@ public class Portillo_Edwin_Proyecto_Tienda {
         double efectivoIngresado = 0, efectivoTotal = 0;
 
         //Declaración de variable compra y venta
-        String seguirComprando, nombreProducto = "";
-        int codigoProducto, porcentajeDescuento;
+        String seguirComprando, nombreProducto = "", confirmarCompra;
+        int codigoProducto, porcentajeDescuento, numeroFacturaVentas = 0, numeroFacturaProveedor = 0;
         double stockAzucar = 5, stockAvena = 0, stockTrigo = 0, stockMaiz = 0;
-        double descuento, precioTotal, isv, totalCompra, cantidadKilos = 0, precioSubtotal = 0, precioUnitario = 0;
+        double descuento, precioTotal, isv, totalCompra, cantidadKilos, precioSubtotal = 0, precioUnitario = 0;
         boolean continuarComprando, cajaAbierta = false;
-        double precioTotalAzucar = 0, precioTotalAvena = 0, precioTotalTrigo = 0, precioTotalMaiz = 0;
+        double precioTotalAzucar, precioTotalAvena, precioTotalTrigo, precioTotalMaiz;
 
         //Menú de inicio
         System.out.println("Bienvenido a la Victitiendita :D!!!");
@@ -76,11 +76,11 @@ public class Portillo_Edwin_Proyecto_Tienda {
 
                         //Variables principales
                         String tipoCliente;
-                        int numeroFacturaVentas = 0;
                         double stockDisponible = 0;
 
                         //Datos por producto
                         double kilosAzucarVendidos = 0, kilosAvenaVendidos = 0, kilosTrigoVendidos = 0, kilosMaizVendidos = 0;
+                        precioTotalAzucar = 0; precioTotalAvena = 0; precioTotalTrigo = 0; precioTotalMaiz = 0; cantidadKilos = 0;
 
                         System.out.println("Ventas seleccionado.");
                         System.out.println("Favor ingrese el tipo de cliente (A, B, C):");
@@ -114,9 +114,15 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                     if (tipoCliente.equals("C")) {
                                         System.out.println("Cliente 'C' no puede comprar azúcar.");
                                         permitido = false;
+                                        System.out.println("¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar):");
+                                        seguirComprando = scanner.next().strip();
+                                        continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
                                     } else if (stockAzucar <= 0) {
                                         System.out.println("No hay azúcar en stock.");
                                         permitido = false;
+                                        System.out.println("¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar):");
+                                        seguirComprando = scanner.next().strip();
+                                        continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
                                     } else {
                                         nombreProducto = "Azúcar";
                                         precioUnitario = 30;
@@ -128,9 +134,15 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                     if (tipoCliente.equals("C")) {
                                         System.out.println("Cliente 'C' no puede comprar avena.");
                                         permitido = false;
+                                        System.out.println("¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar):");
+                                        seguirComprando = scanner.next().strip();
+                                        continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
                                     } else if (stockAvena <= 0) {
                                         System.out.println("No hay avena en stock.");
                                         permitido = false;
+                                        System.out.println("¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar):");
+                                        seguirComprando = scanner.next().strip();
+                                        continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
                                     } else {
                                         nombreProducto = "Avena";
                                         precioUnitario = 25;
@@ -142,9 +154,15 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                     if (tipoCliente.equals("C")) {
                                         System.out.println("Cliente 'C' no puede comprar trigo.");
                                         permitido = false;
+                                        System.out.println("¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar):");
+                                        seguirComprando = scanner.next().strip();
+                                        continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
                                     } else if (stockTrigo <= 0) {
                                         System.out.println("No hay trigo en stock.");
                                         permitido = false;
+                                        System.out.println("¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar):");
+                                        seguirComprando = scanner.next().strip();
+                                        continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
                                     } else {
                                         nombreProducto = "Trigo";
                                         precioUnitario = 32;
@@ -156,15 +174,22 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                     if (tipoCliente.equals("B")) {
                                         System.out.println("Cliente 'B' no puede comprar maíz.");
                                         permitido = false;
-                                    } else if (stockAvena <= 0) {
+                                        System.out.println("¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar):");
+                                        seguirComprando = scanner.next().strip();
+                                        continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
+                                    } else if (stockMaiz <= 0) {
                                         System.out.println("No hay maíz en stock.");
                                         permitido = false;
+                                        System.out.println("¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar):");
+                                        seguirComprando = scanner.next().strip();
+                                        continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
                                     } else {
                                         nombreProducto = "Maíz";
                                         precioUnitario = 20;
                                         stockDisponible = stockMaiz;
                                     }
                                     break;
+                                    
                                 default:
                                     System.out.println("Código de producto inválido.");
                                     permitido = false;
@@ -175,6 +200,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                 System.out.printf("Nombre del producto: %s\n", nombreProducto);
                                 System.out.printf("Precio unitario (kg): Lps. %.2f\n", precioUnitario);
 
+                                cantidadKilos = 0;
                                 while (cantidadKilos <= 0 || cantidadKilos > stockDisponible){
                                     System.out.println("Ingrese la cantidad de kilos a comprar:");
                                     
@@ -198,33 +224,43 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                     case 1:
                                         kilosAzucarVendidos += cantidadKilos;
                                         precioTotalAzucar += totalCompra;
-                                        stockAzucar -= cantidadKilos;
                                         break;
                                     case 2:
                                         kilosAvenaVendidos += cantidadKilos;
                                         precioTotalAvena += totalCompra;
-                                        stockAvena -= cantidadKilos;
                                         break;
                                     case 3:
                                         kilosTrigoVendidos += cantidadKilos;
                                         precioTotalTrigo += totalCompra;
-                                        stockTrigo -= cantidadKilos;
                                         break;
                                     case 4:
                                         kilosMaizVendidos += cantidadKilos;
                                         precioTotalMaiz += totalCompra;
-                                        stockMaiz -= cantidadKilos;
                                         break;
                                 }
-
-                                cantidadKilos = 0;
+                                
                                 System.out.println("¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar):");
                                 seguirComprando = scanner.next().strip();
-                                if (seguirComprando.equalsIgnoreCase("N")) continuarComprando = false;
+                                continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
                             }
                         }
 
+                        
+                        System.out.println("Desea confirmar la compra? (S para confirmar, cualquier otra tecla para cancelar):");
+                        confirmarCompra = scanner.next().strip();
+                        
+                        if (!confirmarCompra.equalsIgnoreCase("S")) {  
+                            precioSubtotal = 0;
+                            System.out.println("Compra cancelada.");
+                        }
+                        
                         if (precioSubtotal > 0) {
+                            
+                            stockAzucar -= kilosAzucarVendidos;
+                            stockAvena -= kilosAvenaVendidos;
+                            stockTrigo -= kilosTrigoVendidos;
+                            stockMaiz -= kilosMaizVendidos;
+                            
                             numeroFacturaVentas ++;
                             System.out.println("-------Factura-------\n");
                             System.out.printf("No. Factura: %d\n", numeroFacturaVentas);
@@ -269,10 +305,12 @@ public class Portillo_Edwin_Proyecto_Tienda {
                         }
                         //Variables principales
                         String tipoProveedor;
-                        int numeroFacturaProveedor = 0;
 
                         //Datos por producto
                         double kilosAzucarComprados = 0, kilosAvenaComprados = 0, kilosTrigoComprados = 0, kilosMaizComprados = 0;
+                        precioSubtotal = 0; precioTotalAzucar = 0; precioTotalAvena = 0; precioTotalTrigo = 0; precioTotalMaiz = 0;
+                        
+                        cantidadKilos = 0;
 
                         System.out.println("Compras seleccionado.");
                         System.out.println("Favor ingrese el tipo de proveedor (A, B, C):");
@@ -384,10 +422,18 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                         precioTotalMaiz += totalCompra;
                                         break;
                                 }
-
-                                cantidadKilos = 0;
+                                
                                 continuarComprando = false;
                             }
+                        }
+                        
+                        System.out.println("Desea confirmar la compra? (S para confirmar, cualquier otra tecla para cancelar):");
+                        confirmarCompra = scanner.next().strip();
+                        
+                        if (!confirmarCompra.equalsIgnoreCase("S")) {
+                            precioSubtotal = 0;
+                            
+                            System.out.println("Compra cancelada.");
                         }
 
                         if (precioSubtotal > 0) {                          
@@ -395,9 +441,14 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             precioTotal = precioSubtotal + isv;
                             
                             if (efectivoTotal < precioTotal) {
-                                System.out.println("Error: no hay efectivo suficiento en caja.");
+                                System.out.println("Error: no hay efectivo suficiente en caja.");
                                 break;
                             }
+                            
+                            stockAzucar += kilosAzucarComprados;
+                            stockAvena += kilosAvenaComprados;
+                            stockTrigo += kilosTrigoComprados;
+                            stockMaiz += kilosMaizComprados;
                             
                             numeroFacturaProveedor ++;
                             System.out.println("-------Factura-------\n");
@@ -416,7 +467,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             System.out.printf("ISV: 7%% (Lps. %.2f)\n", isv);
                             System.out.printf("Total a pagar: %.2f\n", precioTotal);
                             
-                            efectivoTotal -= precioTotal;
+                            efectivoTotal -= precioTotal;                      
                             
                         } else {
                             System.out.println("No se realizaron compras.");
