@@ -16,7 +16,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
         //Declaración de variable compra y venta
         String seguirComprando, nombreProducto = "", confirmarCompra;
         int codigoProducto, porcentajeDescuento, numeroFacturaVentas = 0, numeroFacturaProveedor = 0;
-        double stockAzucar = 5, stockAvena = 0, stockTrigo = 0, stockMaiz = 0;
+        double stockAzucar = 0, stockAvena = 0, stockTrigo = 0, stockMaiz = 0;
         double descuento, precioTotal, isv, totalCompra, cantidadKilos, precioSubtotal = 0, precioUnitario = 0;
         boolean continuarComprando, cajaAbierta = false;
         double precioTotalAzucar, precioTotalAvena, precioTotalTrigo, precioTotalMaiz;
@@ -299,6 +299,14 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                 System.out.printf("ISV: 7%% (Lps. %.2f)\n", isv);
                                 System.out.printf("Total a pagar: %.2f\n", precioTotal);
                                 
+                                
+                                System.out.printf("El efectivo total en caja es de: Lps.%.2f\n", efectivoTotal);
+                                System.out.println("Inventario actual:");
+                                System.out.printf("1. Azúcar: %.2f \n", stockAzucar);
+                                System.out.printf("2. Avena: %.2f \n", stockAvena);
+                                System.out.printf("3. Trigo: %.2f \n", stockTrigo);
+                                System.out.printf("4. Maíz: %.2f \n", stockMaiz);
+                                
                             } else {
                                 System.out.println("Compra cancelada.");
                             }
@@ -495,6 +503,13 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             System.out.printf("Total a pagar: %.2f\n", precioTotal);
                             
                             efectivoTotal -= precioTotal;                      
+                            
+                            System.out.printf("El efectivo total en caja es de: Lps.%.2f\n", efectivoTotal);
+                            System.out.println("Inventario actual:");
+                            System.out.printf("1. Azúcar: %.2f \n", stockAzucar);
+                            System.out.printf("2. Avena: %.2f \n", stockAvena);
+                            System.out.printf("3. Trigo: %.2f \n", stockTrigo);
+                            System.out.printf("4. Maíz: %.2f \n", stockMaiz);
                             
                         } else {
                             System.out.println("No se realizaron compras.");
