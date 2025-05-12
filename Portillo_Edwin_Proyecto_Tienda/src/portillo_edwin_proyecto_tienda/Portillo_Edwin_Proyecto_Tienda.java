@@ -14,7 +14,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
         double efectivoIngresado = 0, efectivoTotal = 0;
 
         //Declaración de variable compra y venta
-        String seguirComprando, nombreProducto = "", confirmarCompra;
+        String seguirComprando, nombreProducto = "", confirmarCompra, cerrarCaja;
         int codigoProducto, porcentajeDescuento, numeroFacturaVentas = 0, numeroFacturaProveedor = 0;
         double stockAzucar = 0, stockAvena = 0, stockTrigo = 0, stockMaiz = 0;
         double descuento, precioTotal, isv, totalCompra, cantidadKilos, precioSubtotal = 0, precioUnitario = 0;
@@ -532,7 +532,42 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             System.out.println("Debe depositar efectivo en caja antes de cerrar caja.");
                             break;
                         }
+                        
+                        double efectivoDepositado;
+                        double porcentajeMaximo = (efectivoTotal/100)*60;
+                        
                         System.out.println("Cierre de caja seleccionado");
+                        
+                        System.out.println("Desea cerrar la caja? (S para confirmar, cualquier otra tecla para cancelar):");
+                        cerrarCaja = scanner.next();
+                        
+                        if (cerrarCaja.equalsIgnoreCase("S")) {
+                            System.out.println("Efectivo total en caja: " + efectivoTotal);
+                            System.out.printf("Ingrese la cantidad de efectivo que desea depositar en el banco (debe ser menor al 60%% (%.2f))\n", porcentajeMaximo);
+                                                
+                       
+                            try{
+                                efectivoIngresado = scanner.nextDouble();
+                                
+                                if (efectivoIngresado <= 0) {
+                                    System.out.println("Error: la cantidad debe ser mayor a 0.");
+                                } else if (efectivoIngresado > porcentajeMaximo) {
+                                    System.out.printf("Error: la cantidad debe ser menor al 60%% (%.2f)\n",porcentajeMaximo);
+                                } else {
+                                    efectivoDepositado = efectivoIngresado;
+                                    System.out.println("Efectivo depositado exitosamente!");
+                                    break;
+                                }
+                                
+                            } catch (InputMismatchException e) {
+                                System.out.println("Cantidad inválida. Favor ingrese datos númericos.");
+                                scanner.next();
+                            }
+                            
+                        } else {
+                            System.out.println("Regresando al menú principal...");
+                        }
+                        
                         break;
 
                     case 6:
