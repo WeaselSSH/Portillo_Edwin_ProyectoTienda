@@ -1,4 +1,4 @@
-package Portillo_Edwin_Proyecto_Tienda;
+package portillo_edwin_proyecto_tienda;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
