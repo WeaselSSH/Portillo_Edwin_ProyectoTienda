@@ -17,7 +17,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
         String seguirComprando, nombreProducto = "", confirmarCompra, cerrarCaja;
         int codigoProducto, porcentajeDescuento, numeroFacturaVentas = 0, numeroFacturaProveedor = 0;
         double stockAzucar = 0, stockAvena = 0, stockTrigo = 0, stockMaiz = 0;
-        double descuento, precioTotal, isv, totalCompra, cantidadKilos, precioSubtotal = 0, precioUnitario = 0;
+        double descuento, precioTotal, isv, totalCompra, cantidadKilos, precioSubtotal, precioUnitario = 0;
         boolean continuarComprando, cajaAbierta = false;
         double precioTotalAzucar, precioTotalAvena, precioTotalTrigo, precioTotalMaiz;
 
@@ -86,7 +86,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
 
                         //Datos por producto
                         double kilosAzucarVendidos = 0, kilosAvenaVendidos = 0, kilosTrigoVendidos = 0, kilosMaizVendidos = 0;
-                        precioTotalAzucar = 0; precioTotalAvena = 0; precioTotalTrigo = 0; precioTotalMaiz = 0; cantidadKilos = 0;
+                        precioTotalAzucar = 0; precioTotalAvena = 0; precioTotalTrigo = 0; precioTotalMaiz = 0; precioSubtotal = 0;
 
                         System.out.println("Ventas seleccionado.");
                         System.out.println("Favor ingrese el tipo de cliente (A, B, C):");
@@ -231,7 +231,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                     if (cantidadKilos <= 0) {
                                         System.out.println("Error: La cantidad debe ser mayor a 0.");
                                     } else if (cantidadKilos > stockDisponible) {
-                                        System.out.println(String.format("No hay suficiente %s. Stock actual: %.2f kg", nombreProducto, stockDisponible));
+                                        System.out.printf("No hay suficiente %s. Stock actual: %.2f kg%n", nombreProducto, stockDisponible);
                                     }
                                 }
 
@@ -332,7 +332,8 @@ public class Portillo_Edwin_Proyecto_Tienda {
 
                         //Datos por producto
                         double kilosAzucarComprados = 0, kilosAvenaComprados = 0, kilosTrigoComprados = 0, kilosMaizComprados = 0;
-                        precioSubtotal = 0; precioTotalAzucar = 0; precioTotalAvena = 0; precioTotalTrigo = 0; precioTotalMaiz = 0;
+                        precioSubtotal = 0; precioTotalAzucar = 0; precioTotalAvena = 0; precioTotalTrigo = 0; precioTotalMaiz = 0; 
+
                         
                         cantidadKilos = 0;
                         boolean salirCompras = true;
