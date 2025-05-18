@@ -95,7 +95,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                         break;
 
                     case 2:
-                        if (!cajaAbierta) { //Verificación que la caja haya sido abierta
+                        if (!cajaAbierta) {
                             System.out.println();
                             System.out.println(">> Error: No puede realizar ventas.");
                             System.out.println();
@@ -103,7 +103,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             break;
                         }
 
-                        if (inventarioAzucar <= 0 && inventarioAvena <= 0 && inventarioTrigo <= 0 && inventarioMaiz <= 0) { //Verificación que exista inventario disponible
+                        if (inventarioAzucar <= 0 && inventarioAvena <= 0 && inventarioTrigo <= 0 && inventarioMaiz <= 0) {
                             System.out.println();
                             System.out.println(">> Error: No hay productos disponibles.");
                             System.out.println();
@@ -141,7 +141,6 @@ public class Portillo_Edwin_Proyecto_Tienda {
                         System.out.print(">> Ingrese el tipo de cliente (A, B, C): ");
                         tipoCliente = scanner.next().strip().toUpperCase();
 
-                        //Validación para que la letra ingresada sea la correcta
                         while (!tipoCliente.equals("A") && !tipoCliente.equals("B") && !tipoCliente.equals("C")) {
                             System.out.println();
                             System.out.print(">> Tipo de cliente inválido. Ingrese 'A', 'B' o 'C': ");
@@ -150,7 +149,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
 
                         //Bucle de venta de productos
                         continuarComprando = true;
-                        while (continuarComprando) { //Bucle de ventas
+                        while (continuarComprando) {
                             Thread.sleep(300);
                             System.out.println();
                             System.out.println("+-------------------------------------+");
@@ -164,7 +163,6 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             System.out.println();
                             System.out.print(">> Ingrese el código del producto a comprar: ");
 
-                            //Validación para que el código ingresado sea del tipo de dato correcto
                             while (!scanner.hasNextInt()) {
                                 System.out.println();
                                 System.out.print(">> Opción inválida. Ingrese un código de producto válido: ");
@@ -175,24 +173,38 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             boolean permitido = true;
                             switch (codigoProducto) {
                                 case 1:
-                                    if (tipoCliente.equals("C")) { //If para validar que el tipo de cliente pueda comprar el producto
+                                    if (tipoCliente.equals("C")) {
                                         System.out.println();
                                         System.out.println(">> Cliente 'C' no puede comprar azúcar.");
                                         permitido = false; //si permitido es false, no se pasa al bloque de compra de producto
 
                                         System.out.println();
-                                        System.out.print(">> ¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar): ");
+                                        System.out.print(">> ¿Desea seguir comprando? (si/no): ");
                                         seguirComprando = scanner.next().strip();
-                                        continuarComprando = !(seguirComprando.equalsIgnoreCase("N")); //se rompe el bucle asignandole el valor false a la variable
-                                    } else if (inventarioAzucar <= 0) { //else if para validar que exista dicho producto en inventario
+
+                                        while (!seguirComprando.equalsIgnoreCase("si") && !seguirComprando.equalsIgnoreCase("no")) { //validar que el usuario ingrese una opción correcta
+                                            System.out.print(">> Entrada inválida. Escriba 'si' para sí o 'no' para no: ");
+                                            seguirComprando = scanner.next().strip();
+                                        }
+
+                                        continuarComprando = seguirComprando.equalsIgnoreCase("si"); //terminar el bucle de compra en caso que el usuario lo desee
+
+                                    } else if (inventarioAzucar <= 0) {
                                         System.out.println();
                                         System.out.println(">> No hay azúcar en inventario.");
                                         permitido = false;
 
                                         System.out.println();
-                                        System.out.print(">> ¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar): ");
+                                        System.out.print(">> ¿Desea seguir comprando? (si/no): ");
                                         seguirComprando = scanner.next().strip();
-                                        continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
+
+                                        while (!seguirComprando.equalsIgnoreCase("si") && !seguirComprando.equalsIgnoreCase("no")) {
+                                            System.out.print(">> Entrada inválida. Escriba 'si' para sí o 'no' para no: ");
+                                            seguirComprando = scanner.next().strip();
+                                        }
+
+                                        continuarComprando = seguirComprando.equalsIgnoreCase("si");
+
                                     } else {
                                         nombreProducto = "Azúcar";
                                         precioUnitario = precioVentaAzucar; //asignación del precio de venta del producto a la variable general precioUnitario
@@ -207,18 +219,32 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                         permitido = false;
 
                                         System.out.println();
-                                        System.out.print(">> ¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar): ");
+                                        System.out.print(">> ¿Desea seguir comprando? (si/no): ");
                                         seguirComprando = scanner.next().strip();
-                                        continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
+
+                                        while (!seguirComprando.equalsIgnoreCase("si") && !seguirComprando.equalsIgnoreCase("no")) {
+                                            System.out.print(">> Entrada inválida. Escriba 'si' para sí o 'no' para no: ");
+                                            seguirComprando = scanner.next().strip();
+                                        }
+
+                                        continuarComprando = seguirComprando.equalsIgnoreCase("si");
+
                                     } else if (inventarioAvena <= 0) {
                                         System.out.println();
                                         System.out.println(">> No hay avena en inventario.");
                                         permitido = false;
 
                                         System.out.println();
-                                        System.out.print(">> ¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar): ");
+                                        System.out.print(">> ¿Desea seguir comprando? (si/no): ");
                                         seguirComprando = scanner.next().strip();
-                                        continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
+
+                                        while (!seguirComprando.equalsIgnoreCase("si") && !seguirComprando.equalsIgnoreCase("no")) {
+                                            System.out.print(">> Entrada inválida. Escriba 'si' para sí o 'no' para no: ");
+                                            seguirComprando = scanner.next().strip();
+                                        }
+
+                                        continuarComprando = seguirComprando.equalsIgnoreCase("si");
+
                                     } else {
                                         nombreProducto = "Avena";
                                         precioUnitario = precioVentaAvena;
@@ -233,18 +259,32 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                         permitido = false;
 
                                         System.out.println();
-                                        System.out.print(">> ¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar): ");
+                                        System.out.print(">> ¿Desea seguir comprando? (si/no): ");
                                         seguirComprando = scanner.next().strip();
-                                        continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
+
+                                        while (!seguirComprando.equalsIgnoreCase("si") && !seguirComprando.equalsIgnoreCase("no")) {
+                                            System.out.print(">> Entrada inválida. Escriba 'si' para sí o 'no' para no: ");
+                                            seguirComprando = scanner.next().strip();
+                                        }
+
+                                        continuarComprando = seguirComprando.equalsIgnoreCase("si");
+
                                     } else if (inventarioTrigo <= 0) {
                                         System.out.println();
                                         System.out.println(">> No hay trigo en inventario.");
                                         permitido = false;
 
                                         System.out.println();
-                                        System.out.print(">> ¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar): ");
+                                        System.out.print(">> ¿Desea seguir comprando? (si/no): ");
                                         seguirComprando = scanner.next().strip();
-                                        continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
+
+                                        while (!seguirComprando.equalsIgnoreCase("si") && !seguirComprando.equalsIgnoreCase("no")) {
+                                            System.out.print(">> Entrada inválida. Escriba 'si' para sí o 'no' para no: ");
+                                            seguirComprando = scanner.next().strip();
+                                        }
+
+                                        continuarComprando = seguirComprando.equalsIgnoreCase("si");
+
                                     } else {
                                         nombreProducto = "Trigo";
                                         precioUnitario = precioVentaTrigo;
@@ -259,18 +299,32 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                         permitido = false;
 
                                         System.out.println();
-                                        System.out.print(">> ¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar): ");
+                                        System.out.print(">> ¿Desea seguir comprando? (si/no): ");
                                         seguirComprando = scanner.next().strip();
-                                        continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
+
+                                        while (!seguirComprando.equalsIgnoreCase("si") && !seguirComprando.equalsIgnoreCase("no")) {
+                                            System.out.print(">> Entrada inválida. Escriba 'si' para sí o 'no' para no: ");
+                                            seguirComprando = scanner.next().strip();
+                                        }
+
+                                        continuarComprando = seguirComprando.equalsIgnoreCase("si");
+
                                     } else if (inventarioMaiz <= 0) {
                                         System.out.println();
                                         System.out.println(">> No hay maíz en inventario.");
                                         permitido = false;
 
                                         System.out.println();
-                                        System.out.print(">> ¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar): ");
+                                        System.out.print(">> ¿Desea seguir comprando? (si/no): ");
                                         seguirComprando = scanner.next().strip();
-                                        continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
+
+                                        while (!seguirComprando.equalsIgnoreCase("si") && !seguirComprando.equalsIgnoreCase("no")) {
+                                            System.out.print(">> Entrada inválida. Escriba 'si' para sí o 'no' para no: ");
+                                            seguirComprando = scanner.next().strip();
+                                        }
+
+                                        continuarComprando = seguirComprando.equalsIgnoreCase("si");
+
                                     } else {
                                         nombreProducto = "Maíz";
                                         precioUnitario = precioVentaMaiz;
@@ -292,12 +346,11 @@ public class Portillo_Edwin_Proyecto_Tienda {
 
                                 cantidadKilos = 0;
 
-                                //bucle para verificar que la cantidad de kilos a ingresar sea mayor a 0 y menor al inventario disponible
                                 while (cantidadKilos <= 0 || cantidadKilos > inventarioDisponible) {
                                     System.out.println();
                                     System.out.print(">> Ingrese la cantidad de kilos a comprar: ");
 
-                                    while (!scanner.hasNextDouble()) { //validar que el valor ingresado sea númerico
+                                    while (!scanner.hasNextDouble()) {
                                         System.out.println();
                                         System.out.print(">> Valor inválido. Favor ingresar datos numéricos únicamente: ");
                                         scanner.next();
@@ -339,9 +392,15 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                         break;
                                 }
                                 System.out.println();
-                                System.out.print(">> ¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar): ");
+                                System.out.print(">> ¿Desea seguir comprando? (si/no): ");
                                 seguirComprando = scanner.next().strip();
-                                continuarComprando = !(seguirComprando.equalsIgnoreCase("N")); // terminar bucle de compras en caso que el usuario lo desee
+
+                                while (!seguirComprando.equalsIgnoreCase("si") && !seguirComprando.equalsIgnoreCase("no")) {
+                                    System.out.print(">> Entrada inválida. Escriba 'si' para sí o 'no' para no: ");
+                                    seguirComprando = scanner.next().strip();
+                                }
+
+                                continuarComprando = seguirComprando.equalsIgnoreCase("si"); // terminar bucle de compras en caso que el usuario lo desee
                             }
                         }
 
@@ -355,6 +414,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             System.out.println("+-------------------------------------+");
                             System.out.printf("| No. Factura: %-22d |\n", numeroFacturaVentas); //alinear texto a la izquierda
 
+                            //Mostrar datos de los proudctos comprados por el cliente
                             if (kilosAzucarVendidos > 0) {
                                 System.out.println("+-------------------------------------+");
                                 System.out.printf("| Azúcar:            KG %13.2f |\n", kilosAzucarVendidos); //alinear texto a la derechar
@@ -387,11 +447,11 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             //if ternario para verificar cuanto descuento se le otorgará al usuario
                             porcentajeDescuento = (precioSubtotal > 5000) ? 10 : (precioSubtotal >= 1000) ? 5 : 0;
 
-                            descuento = precioSubtotal * (porcentajeDescuento / 100.0); //cálculo de descuento
+                            descuento = precioSubtotal * (porcentajeDescuento / 100.0);
                             precioSubtotal -= descuento;
                             isv = precioSubtotal * 0.07; //se calcula el ISV después del descuento
                             precioTotal = precioSubtotal + isv;
-                            efectivoTotal += precioTotal; //se suma lo vendido a caja
+                            efectivoTotal += precioTotal;
 
                             System.out.printf("| Descuento: %d%%      Lps. %11.2f |\n", porcentajeDescuento, descuento);
                             System.out.printf("| ISV: 7%%            Lps. %11.2f |\n", isv);
