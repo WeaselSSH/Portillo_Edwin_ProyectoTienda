@@ -8,22 +8,24 @@ public class Portillo_Edwin_Proyecto_Tienda {
     public static void main(String[] args) throws InterruptedException {
 
         Scanner scanner = new Scanner(System.in);
-        scanner.useDelimiter("\n");
+        scanner.useDelimiter("\n"); //se usa como delimiter \n con el fin que scanner.next() pueda leer más alla de los espacios
 
-        //Declaración de variables del menú inicio y abrir caja
+        // Variables relacionadas al control general del sistema
+        boolean cajaAbierta = false;
+
         int opcion = 0;
         double efectivoIngresado = 0, efectivoTotal = 0;
 
-        //Declaración de variable compra y venta
-        String seguirComprando, nombreProducto = "", confirmarCompra, cerrarCaja;
+        // Variables para operaciones de compra y venta
+        String seguirComprando, nombreProducto = "", cerrarCaja;
+        boolean continuarComprando;
+
         int codigoProducto, porcentajeDescuento, numeroFacturaVentas = 0, numeroFacturaProveedor = 0;
-        double stockAzucar = 10, stockAvena = 10, stockTrigo = 10, stockMaiz = 10;
         double descuento, precioTotal, isv, totalCompra, cantidadKilos, precioSubtotal, precioUnitario = 0;
-        boolean continuarComprando, cajaAbierta = false;
         double precioTotalAzucar, precioTotalAvena, precioTotalTrigo, precioTotalMaiz;
+        double stockAzucar = 10, stockAvena = 10, stockTrigo = 10, stockMaiz = 10;
 
         //Menú de inicio
-        Thread.sleep(250);
         System.out.println();
         System.out.println("+-------------------------------------+");
         System.out.println("|   Bienvenido a la Victitiendita!    |");
@@ -31,7 +33,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
 
         // Bucle del menú principal que continua hasta que el usuario seleccione la opción 6
         while (opcion != 6) {
-            Thread.sleep(500);
+            Thread.sleep(300); //uso de Thread.sleep() con el fin que el usuario sea capaz de ver los outputs de una forma más amigable
             System.out.println();
             System.out.println("+-------------------------------------+");
             System.out.println("|         === MENU PRINCIPAL ===      |");
@@ -43,85 +45,85 @@ public class Portillo_Edwin_Proyecto_Tienda {
             System.out.println("| 5. Cierre de Caja                   |");
             System.out.println("| 6. Salir del Sistema                |");
             System.out.println("+-------------------------------------+");
-            Thread.sleep(250);
             System.out.print(">> Seleccione una opción [1-6]: ");
 
-            try { //Validar que el dato ingresado sea entero
+            try { //Validar que el dato ingresado sea numerico 
                 opcion = scanner.nextInt();
 
                 switch (opcion) { //switch con las opciones mostradas previamente
                     case 1:
-                        Thread.sleep(500);
+                        Thread.sleep(300);
                         System.out.println();
                         System.out.println("+-------------------------------------+");
                         System.out.println("|           === ABRIR CAJA ===        |");
                         System.out.println("+-------------------------------------+");
 
-                        // Bucle para asegurar que la cantidad ingresada sea válida
                         while (efectivoIngresado <= 0) {
-                            Thread.sleep(250);
                             System.out.println();
                             System.out.print(">> Ingrese la cantidad de efectivo a guardar (Lps): ");
 
-                            try {
+                            try { //Validar que sea un valor de tipo númerico el ingresado
                                 efectivoIngresado = scanner.nextDouble();
 
                                 if (efectivoIngresado <= 0) {
-                                    Thread.sleep(250);
                                     System.out.println();
                                     System.out.println(">> Error: la cantidad debe ser mayor a 0.");
                                 }
 
                             } catch (InputMismatchException e) {
-                                Thread.sleep(250);
                                 System.out.println();
-                                System.out.println(">> Opción inválida: Intente nuevamente.");
+                                System.out.println(">> Error: Solo se aceptan datos númericos. Intente nuevamente");
                                 scanner.next();
                             }
-
                         }
 
-                        // Actualizar el total y mostrar los datos
+                        // Actualizar el efectivo total en caja y mostrar los datos
                         efectivoTotal += efectivoIngresado;
-                        Thread.sleep(250);
+                        Thread.sleep(300);
                         System.out.println();
                         System.out.println("+-------------------------------------+");
                         System.out.printf("| %-20s Lps.%10.2f |\n", "Usted guardó:", efectivoIngresado);
                         System.out.printf("| %-20s Lps.%10.2f |\n", "Total en caja:", efectivoTotal);
                         System.out.println("+-------------------------------------+");
+                        /*se usa -20s para que exista 20 espacios de diferencia entre el texto y el valor. 
+                        También se usa 10.2f con el objetivo que si el valor del efectivo ingresado es muy 
+                        grande el cuadro quede simétrico de igual forma, gracias a los 10 espacios reservados.
+                         */
 
                         efectivoIngresado = 0;
                         cajaAbierta = true;
                         break;
 
                     case 2:
-                        //Verificación que haya efectivo en caja
-                        if (!cajaAbierta) {
-                            Thread.sleep(250);
+                        if (!cajaAbierta) { //Verificación que la caja haya sido abierta
                             System.out.println();
                             System.out.println(">> Error: No puede realizar ventas.");
-                            Thread.sleep(250);
+                            System.out.println();
                             System.out.println(">> La caja no ha sido abierta aún.");
                             break;
                         }
 
-                        if (stockAzucar <= 0 && stockAvena <= 0 && stockTrigo <= 0 && stockMaiz <= 0) {
+                        if (stockAzucar <= 0 && stockAvena <= 0 && stockTrigo <= 0 && stockMaiz <= 0) { //Verificación que exista stock disponible
                             System.out.println();
-                            Thread.sleep(250);
                             System.out.println(">> Error: No hay productos disponibles.");
-                            Thread.sleep(250);
+                            System.out.println();
                             System.out.println(">> Todos los productos están agotados.");
                             break;
                         }
 
-                        //Variables principales
+                        //Variables generales
                         String tipoCliente;
                         double stockDisponible = 0;
 
-                        //Datos por producto
+                        //Variables relacionadas a los datos de producto
                         double kilosAzucarVendidos = 0,
                          kilosAvenaVendidos = 0,
                          kilosTrigoVendidos = 0,
+                         precioVentaAzucar = 30,
+                         precioVentaAvena = 25,
+                         precioVentaTrigo = 32,
+                         precioVentaMaiz = 20,
+
                          kilosMaizVendidos = 0;
                         precioTotalAzucar = 0;
                         precioTotalAvena = 0;
@@ -129,27 +131,27 @@ public class Portillo_Edwin_Proyecto_Tienda {
                         precioTotalMaiz = 0;
                         precioSubtotal = 0;
 
-                        Thread.sleep(500);
+                        Thread.sleep(300);
                         System.out.println();
                         System.out.println("+-------------------------------------+");
                         System.out.println("|             === VENTAS ===          |");
                         System.out.println("+-------------------------------------+");
 
-                        Thread.sleep(250);
+                        System.out.println();
                         System.out.print(">> Ingrese el tipo de cliente (A, B, C): ");
                         tipoCliente = scanner.next().strip().toUpperCase();
 
                         //Validación para que la letra ingresada sea la correcta
-                        Thread.sleep(250);
                         while (!tipoCliente.equals("A") && !tipoCliente.equals("B") && !tipoCliente.equals("C")) {
+                            System.out.println();
                             System.out.print(">> Tipo de cliente inválido. Ingrese 'A', 'B' o 'C': ");
                             tipoCliente = scanner.next().strip().toUpperCase();
                         }
 
-                        //Bucle de compra
+                        //Bucle de venta de productos
                         continuarComprando = true;
-                        while (continuarComprando) {
-                            Thread.sleep(500);
+                        while (continuarComprando) { //Bucle de ventas
+                            Thread.sleep(300);
                             System.out.println();
                             System.out.println("+-------------------------------------+");
                             System.out.println("|    === SELECCIÓN DE PRODUCTO ===    |");
@@ -159,11 +161,12 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             System.out.println("| 3. Trigo                            |");
                             System.out.println("| 4. Maíz                             |");
                             System.out.println("+-------------------------------------+");
+                            System.out.println();
                             System.out.print(">> Ingrese el código del producto a comprar: ");
 
-                            //Validación para que el código seleccionado sea válido
+                            //Validación para que el código ingresado sea del tipo de dato correcto
                             while (!scanner.hasNextInt()) {
-                                Thread.sleep(250);
+                                System.out.println();
                                 System.out.print(">> Opción inválida. Ingrese un código de producto válido: ");
                                 scanner.next();
                             }
@@ -172,130 +175,140 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             boolean permitido = true;
                             switch (codigoProducto) {
                                 case 1:
-                                    if (tipoCliente.equals("C")) {
-                                        Thread.sleep(250);
+                                    if (tipoCliente.equals("C")) { //If para validar que el tipo de cliente pueda comprar el producto
+                                        System.out.println();
                                         System.out.println(">> Cliente 'C' no puede comprar azúcar.");
-                                        permitido = false;
-                                        Thread.sleep(250);
+                                        permitido = false; //si permitido es false, no se pasa al bloque de compra de producto
+
+                                        System.out.println();
                                         System.out.print(">> ¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar): ");
                                         seguirComprando = scanner.next().strip();
-                                        continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
-                                    } else if (stockAzucar <= 0) {
-                                        Thread.sleep(250);
+                                        continuarComprando = !(seguirComprando.equalsIgnoreCase("N")); //se rompe el bucle asignandole el valor false a la variable
+                                    } else if (stockAzucar <= 0) { //else if para validar que exista dicho producto en stock
+                                        System.out.println();
                                         System.out.println(">> No hay azúcar en stock.");
                                         permitido = false;
-                                        Thread.sleep(250);
+
+                                        System.out.println();
                                         System.out.print(">> ¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar): ");
                                         seguirComprando = scanner.next().strip();
                                         continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
                                     } else {
                                         nombreProducto = "Azúcar";
-                                        precioUnitario = 30;
-                                        stockDisponible = stockAzucar;
+                                        precioUnitario = precioVentaAzucar; //asignación del precio de venta del producto a la variable general precioUnitario
+                                        stockDisponible = stockAzucar; //asignación del stock disponible del producto a la variable general stockDisponible
                                     }
                                     break;
 
                                 case 2:
                                     if (tipoCliente.equals("C")) {
-                                        Thread.sleep(250);
+                                        System.out.println();
                                         System.out.println(">> Cliente 'C' no puede comprar avena.");
                                         permitido = false;
-                                        Thread.sleep(250);
+
+                                        System.out.println();
                                         System.out.print(">> ¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar): ");
                                         seguirComprando = scanner.next().strip();
                                         continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
                                     } else if (stockAvena <= 0) {
-                                        Thread.sleep(250);
+                                        System.out.println();
                                         System.out.println(">> No hay avena en stock.");
                                         permitido = false;
-                                        Thread.sleep(250);
+
+                                        System.out.println();
                                         System.out.print(">> ¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar): ");
                                         seguirComprando = scanner.next().strip();
                                         continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
                                     } else {
                                         nombreProducto = "Avena";
-                                        precioUnitario = 25;
+                                        precioUnitario = precioVentaAvena;
                                         stockDisponible = stockAvena;
                                     }
                                     break;
 
                                 case 3:
                                     if (tipoCliente.equals("C")) {
-                                        Thread.sleep(250);
+                                        System.out.println();
                                         System.out.println(">> Cliente 'C' no puede comprar trigo.");
                                         permitido = false;
-                                        Thread.sleep(250);
+
+                                        System.out.println();
                                         System.out.print(">> ¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar): ");
                                         seguirComprando = scanner.next().strip();
                                         continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
                                     } else if (stockTrigo <= 0) {
-                                        Thread.sleep(250);
+                                        System.out.println();
                                         System.out.println(">> No hay trigo en stock.");
                                         permitido = false;
-                                        Thread.sleep(250);
+
+                                        System.out.println();
                                         System.out.print(">> ¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar): ");
                                         seguirComprando = scanner.next().strip();
                                         continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
                                     } else {
                                         nombreProducto = "Trigo";
-                                        precioUnitario = 32;
+                                        precioUnitario = precioVentaTrigo;
                                         stockDisponible = stockTrigo;
                                     }
                                     break;
 
                                 case 4:
                                     if (tipoCliente.equals("B")) {
-                                        Thread.sleep(250);
+                                        System.out.println();
                                         System.out.println(">> Cliente 'B' no puede comprar maíz.");
                                         permitido = false;
-                                        Thread.sleep(250);
+                                        
+                                        System.out.println();
                                         System.out.print(">> ¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar): ");
                                         seguirComprando = scanner.next().strip();
                                         continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
                                     } else if (stockMaiz <= 0) {
-                                        Thread.sleep(250);
+                                        System.out.println();
                                         System.out.println(">> No hay maíz en stock.");
                                         permitido = false;
-                                        Thread.sleep(250);
+                                        
+                                        System.out.println();
                                         System.out.print(">> ¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar): ");
                                         seguirComprando = scanner.next().strip();
                                         continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
                                     } else {
                                         nombreProducto = "Maíz";
-                                        precioUnitario = 20;
+                                        precioUnitario = precioVentaMaiz;
                                         stockDisponible = stockMaiz;
                                     }
                                     break;
 
                                 default:
-                                    Thread.sleep(250);
+                                    System.out.println();
                                     System.out.println(">> Código de producto inválido.");
                                     permitido = false;
                                     break;
                             }
 
                             if (permitido) {
-                                Thread.sleep(250);
+                                System.out.println();
                                 System.out.printf(">> Nombre del producto: %s\n", nombreProducto);
                                 System.out.printf(">> Precio unitario (kg): Lps. %.2f\n", precioUnitario);
 
                                 cantidadKilos = 0;
+                                
+                                //bucle para verificar que la cantidad de kilos a ingresar sea mayor a 0 y menor al stock disponible
                                 while (cantidadKilos <= 0 || cantidadKilos > stockDisponible) {
-                                    Thread.sleep(250);
+                                    System.out.println();
                                     System.out.print(">> Ingrese la cantidad de kilos a comprar: ");
 
-                                    while (!scanner.hasNextDouble()) {
-                                        Thread.sleep(250);
+                                    while (!scanner.hasNextDouble()) { //validar que el valor ingresado sea númerico
+                                        System.out.println();
                                         System.out.print(">> Valor inválido. Favor ingresar datos numéricos únicamente: ");
                                         scanner.next();
                                     }
                                     cantidadKilos = scanner.nextDouble();
 
                                     if (cantidadKilos <= 0) {
-                                        Thread.sleep(250);
+                                        System.out.println();
                                         System.out.println(">> Error: La cantidad debe ser mayor a 0.");
                                     } else if (cantidadKilos > stockDisponible) {
-                                        Thread.sleep(250);
+                                        System.out.println();
                                         System.out.printf(">> No hay suficiente %s. Stock actual: %.2f kg%n", nombreProducto, stockDisponible);
                                     }
                                 }
@@ -303,11 +316,11 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                 totalCompra = cantidadKilos * precioUnitario;
                                 precioSubtotal += totalCompra;
 
-                                switch (codigoProducto) {
-                                    case 1:
+                                switch (codigoProducto) { //añadir los kilos comprados a su respectivo producto y descontarlo del stock 
+                                    case 1:  
                                         kilosAzucarVendidos += cantidadKilos;
                                         precioTotalAzucar += totalCompra;
-                                        stockAzucar -= cantidadKilos;
+                                        stockAzucar -= cantidadKilos; 
                                         break;
                                     case 2:
                                         kilosAvenaVendidos += cantidadKilos;
@@ -325,47 +338,45 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                         stockMaiz -= cantidadKilos;
                                         break;
                                 }
-
-                                Thread.sleep(250);
+                                System.out.println();
                                 System.out.print(">> ¿Desea seguir comprando? (Presione 'N' para salir, cualquier otra tecla para continuar): ");
                                 seguirComprando = scanner.next().strip();
-                                continuarComprando = !(seguirComprando.equalsIgnoreCase("N"));
+                                continuarComprando = !(seguirComprando.equalsIgnoreCase("N")); // terminar bucle de compras en caso que el usuario lo desee
                             }
                         }
 
-                        if (precioSubtotal > 0) {
-                            Thread.sleep(250);
+                        if (precioSubtotal > 0) { //verificar que el usuario haya comprado algo
 
                             numeroFacturaVentas++;
 
-                            Thread.sleep(500);
+                            Thread.sleep(300);
                             System.out.println("+-------------------------------------+");
                             System.out.println("|                FACTURA              |");
                             System.out.println("+-------------------------------------+");
-                            System.out.printf("| No. Factura: %-22d |\n", numeroFacturaVentas);
+                            System.out.printf("| No. Factura: %-22d |\n", numeroFacturaVentas); //alinear texto a la izquierda
 
                             if (kilosAzucarVendidos > 0) {
                                 System.out.println("+-------------------------------------+");
-                                System.out.printf("| Azúcar:            KG %13.2f |\n", kilosAzucarVendidos);
-                                System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", 30.00);
+                                System.out.printf("| Azúcar:            KG %13.2f |\n", kilosAzucarVendidos); //alinear texto a la derechar
+                                System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioVentaAzucar);
                                 System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalAzucar);
                             }
                             if (kilosAvenaVendidos > 0) {
                                 System.out.println("+-------------------------------------+");
                                 System.out.printf("| Avena:             KG %13.2f |\n", kilosAvenaVendidos);
-                                System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", 25.00);
+                                System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioVentaAvena);
                                 System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalAvena);
                             }
                             if (kilosTrigoVendidos > 0) {
                                 System.out.println("+-------------------------------------+");
                                 System.out.printf("| Trigo:             KG %13.2f |\n", kilosTrigoVendidos);
-                                System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", 32.00);
+                                System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioVentaTrigo);
                                 System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalTrigo);
                             }
                             if (kilosMaizVendidos > 0) {
                                 System.out.println("+-------------------------------------+");
                                 System.out.printf("| Maíz:              KG %13.2f |\n", kilosMaizVendidos);
-                                System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", 20.00);
+                                System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioVentaMaiz);
                                 System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalMaiz);
                             }
 
@@ -373,12 +384,14 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             System.out.printf("| Subtotal:          Lps. %11.2f |\n", precioSubtotal);
                             System.out.println("+-------------------------------------+");
 
-                            porcentajeDescuento = (precioSubtotal > 5000) ? 10
-                                    : (precioSubtotal >= 1000) ? 5 : 0;
-                            descuento = precioSubtotal * (porcentajeDescuento / 100.0);
-                            isv = precioSubtotal * 0.07;
-                            precioTotal = precioSubtotal - descuento + isv;
-                            efectivoTotal += precioTotal;
+                            //if ternario para verificar cuanto descuento se le otorgará al usuario
+                            porcentajeDescuento = (precioSubtotal > 5000) ? 10 : (precioSubtotal >= 1000) ? 5 : 0; 
+                            
+                            descuento = precioSubtotal * (porcentajeDescuento / 100.0); //cálculo de descuento
+                            precioSubtotal -= descuento;
+                            isv = precioSubtotal * 0.07; //se calcula el ISV después del descuento
+                            precioTotal = precioSubtotal + isv;
+                            efectivoTotal += precioTotal; //se suma lo vendido a caja
 
                             System.out.printf("| Descuento: %d%%      Lps. %11.2f |\n", porcentajeDescuento, descuento);
                             System.out.printf("| ISV: 7%%            Lps. %11.2f |\n", isv);
