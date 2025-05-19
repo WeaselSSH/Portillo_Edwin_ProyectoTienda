@@ -811,7 +811,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                         System.out.println("========================= REPORTE DEL DÍA =========================\n");
 
                         if (numeroCompras > 0) {
-                            System.out.printf("%-30s %14d\n", "Compras realizadas:", numeroCompras);
+                            System.out.printf("%-30s %14d\n", "Compras realizadas:", numeroCompras); // -30s y 14 usado para alinear el texto de forma simétrica con los otros
                         } else {
                             System.out.println("No se realizaron compras.");
                         }
@@ -852,7 +852,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
 
                         System.out.printf("%-30s Lps. %14.2f\n", "Efectivo en caja:", efectivoTotal);
 
-                        double max = kilosAzucarReporte;
+                        double max = kilosAzucarReporte; //variable creada para verificar el producto estrella por medio de comparación con los demás productos
                         if (kilosAvenaReporte > max) {
                             max = kilosAvenaReporte;
                         }
@@ -866,14 +866,14 @@ public class Portillo_Edwin_Proyecto_Tienda {
                         if (max > 0) {
                             System.out.println();
                             System.out.print("Producto estrella: ");
-                            boolean primero = true;
+                            boolean primero = true; //Variable creada para verificar si escribirlo con , o no el producto estrella
 
                             if (kilosAzucarReporte == max) {
                                 System.out.print("Azúcar");
                                 primero = false;
                             }
                             if (kilosAvenaReporte == max) {
-                                if (!primero) {
+                                if (!primero) { //Verificar si es el primer producto o no
                                     System.out.print(", ");
                                 }
                                 System.out.print("Avena");
@@ -944,7 +944,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                     } else if (efectivoIngresado > porcentajeMaximo) {
                                         System.out.println();
                                         System.out.printf(">> Error: la cantidad debe ser menor al 60%% (%.2f): ", porcentajeMaximo);
-                                    } else if (efectivoIngresado == 0) {
+                                    } else if (efectivoIngresado == 0) { //si efectivo es 0, no se deposita simplemente y se sale de cierre de caja (pero igual se cierra)
                                         System.out.println();
                                         System.out.println(">> No se depositó efectivo.");
                                         break;
