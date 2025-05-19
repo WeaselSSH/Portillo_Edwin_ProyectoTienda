@@ -196,7 +196,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             System.out.println("| 4. Maíz                             |");
                             System.out.println("+-------------------------------------+");
                             System.out.println();
-                            System.out.print(">> Ingrese el código del producto a comprar: ");
+                            System.out.print(">> Ingrese el código del producto a comprar [1-4]: ");
 
                             while (!scanner.hasNextInt()) { //validar que el valor ingresado sea un número
                                 Thread.sleep(500);
@@ -214,7 +214,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                 System.out.println("| 4. Maíz                             |");
                                 System.out.println("+-------------------------------------+");
                                 System.out.println();
-                                System.out.print(">> Ingrese el código del producto a comprar: ");
+                                System.out.print(">> Ingrese el código del producto a comprar [1-4]: ");
                                 scanner.next();
                             }
                             codigoProducto = scanner.nextInt();
@@ -249,6 +249,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                         seguirComprando = scanner.next().strip();
 
                                         while (!seguirComprando.equalsIgnoreCase("si") && !seguirComprando.equalsIgnoreCase("no")) {
+                                            System.out.println();
                                             System.out.print(">> Entrada inválida. Escriba 'si' para sí o 'no' para no: ");
                                             seguirComprando = scanner.next().strip();
                                         }
@@ -273,6 +274,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                         seguirComprando = scanner.next().strip();
 
                                         while (!seguirComprando.equalsIgnoreCase("si") && !seguirComprando.equalsIgnoreCase("no")) {
+                                            System.out.println();
                                             System.out.print(">> Entrada inválida. Escriba 'si' para sí o 'no' para no: ");
                                             seguirComprando = scanner.next().strip();
                                         }
@@ -289,6 +291,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                         seguirComprando = scanner.next().strip();
 
                                         while (!seguirComprando.equalsIgnoreCase("si") && !seguirComprando.equalsIgnoreCase("no")) {
+                                            System.out.println();
                                             System.out.print(">> Entrada inválida. Escriba 'si' para sí o 'no' para no: ");
                                             seguirComprando = scanner.next().strip();
                                         }
@@ -313,6 +316,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                         seguirComprando = scanner.next().strip();
 
                                         while (!seguirComprando.equalsIgnoreCase("si") && !seguirComprando.equalsIgnoreCase("no")) {
+                                            System.out.println();
                                             System.out.print(">> Entrada inválida. Escriba 'si' para sí o 'no' para no: ");
                                             seguirComprando = scanner.next().strip();
                                         }
@@ -329,6 +333,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                         seguirComprando = scanner.next().strip();
 
                                         while (!seguirComprando.equalsIgnoreCase("si") && !seguirComprando.equalsIgnoreCase("no")) {
+                                            System.out.println();
                                             System.out.print(">> Entrada inválida. Escriba 'si' para sí o 'no' para no: ");
                                             seguirComprando = scanner.next().strip();
                                         }
@@ -353,6 +358,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                         seguirComprando = scanner.next().strip();
 
                                         while (!seguirComprando.equalsIgnoreCase("si") && !seguirComprando.equalsIgnoreCase("no")) {
+                                            System.out.println();
                                             System.out.print(">> Entrada inválida. Escriba 'si' para sí o 'no' para no: ");
                                             seguirComprando = scanner.next().strip();
                                         }
@@ -369,6 +375,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                         seguirComprando = scanner.next().strip();
 
                                         while (!seguirComprando.equalsIgnoreCase("si") && !seguirComprando.equalsIgnoreCase("no")) {
+                                            System.out.println();
                                             System.out.print(">> Entrada inválida. Escriba 'si' para sí o 'no' para no: ");
                                             seguirComprando = scanner.next().strip();
                                         }
@@ -603,7 +610,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             System.out.println("| 4. Maíz                             |");
                             System.out.println("+-------------------------------------+");
                             System.out.println();
-                            System.out.print(">> Ingrese el código del producto a comprar: ");
+                            System.out.print(">> Ingrese el código del producto a comprar [1-4]: ");
 
                             while (!scanner.hasNextInt()) {
                                 Thread.sleep(500);
@@ -1002,7 +1009,8 @@ public class Portillo_Edwin_Proyecto_Tienda {
                 }
             } catch (InputMismatchException e) {
                 System.out.println();
-                System.out.println(">> Opción inválida. Favor ingresar unicamente números enteros.");
+                System.out.print(">> Opción inválida. Favor ingresar unicamente números enteros. ");
+                System.out.println();
                 scanner.next();
             }
         }
