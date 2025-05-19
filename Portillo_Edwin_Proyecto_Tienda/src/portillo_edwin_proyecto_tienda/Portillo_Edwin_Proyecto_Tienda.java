@@ -16,11 +16,16 @@ public class Portillo_Edwin_Proyecto_Tienda {
         int opcion = 0;
         double efectivoIngresado = 0, efectivoTotal = 0, efectivoDepositado = 0;
 
+        //variables de reporte
+        double volumenCompras = 0, volumenVentas = 0, ventaMayor = 0, compraMayor = 0,
+                kilosAzucarReporte = 0, kilosAvenaReporte = 0, kilosTrigoReporte = 0, kilosMaizReporte = 0;
+        int numeroVentaMayor = 0, numeroCompraMayor = 0, ventasProductoEstrella = 0;
+
         // Variables para operaciones de compra y venta
         String seguirComprando, nombreProducto = "", cerrarCaja;
         boolean continuarComprando;
 
-        int codigoProducto, porcentajeDescuento, numeroFacturaVentas = 0, numeroFacturaProveedor = 0;
+        int codigoProducto, porcentajeDescuento, numeroFacturaVentas = 0, numeroFacturaProveedor = 0, numeroCompras = 0, numeroVentas = 0;
         double descuento, precioTotal, isv, totalCompra, cantidadKilos, precioSubtotal, precioUnitario = 0;
         double precioTotalAzucar, precioTotalAvena, precioTotalTrigo, precioTotalMaiz;
         double inventarioAzucar = 10, inventarioAvena = 0, inventarioTrigo = 0, inventarioMaiz = 0;
@@ -54,13 +59,13 @@ public class Portillo_Edwin_Proyecto_Tienda {
                 switch (opcion) { //switch con las opciones mostradas previamente
                     case 1:
                         efectivoIngresado = 0; //reinicio de variable
-                        
+
                         Thread.sleep(500);
                         System.out.println();
                         System.out.println("+-------------------------------------+");
                         System.out.println("|           === ABRIR CAJA ===        |");
                         System.out.println("+-------------------------------------+");
-                        
+
                         if (cajaAbiertaAntes) { //verificar si la caja ha sido abierta previamente
                             System.out.println();
                             System.out.println(">> Caja abierta exitosamente.");
@@ -70,12 +75,12 @@ public class Portillo_Edwin_Proyecto_Tienda {
                         }
 
                         while (efectivoIngresado <= 0) {
-                            
+
                             if (!cajaAbierta) { //mostrar el mensaje solo si se abre caja por primera vez
-                            System.out.println();
-                            System.out.println(">> Caja abierta exitosamente.");
+                                System.out.println();
+                                System.out.println(">> Caja abierta exitosamente.");
                             }
-                            
+
                             System.out.println();
                             System.out.print(">> Ingrese la cantidad de efectivo a guardar (Lps): ");
 
@@ -407,21 +412,29 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                         kilosAzucarVendidos += cantidadKilos;
                                         precioTotalAzucar += totalCompra;
                                         inventarioAzucar -= cantidadKilos;
+
+                                        kilosAzucarReporte += cantidadKilos; //contador para verificar producto estrella en reporte del día
                                         break;
                                     case 2:
                                         kilosAvenaVendidos += cantidadKilos;
                                         precioTotalAvena += totalCompra;
                                         inventarioAvena -= cantidadKilos;
+
+                                        kilosAvenaReporte += cantidadKilos;
                                         break;
                                     case 3:
                                         kilosTrigoVendidos += cantidadKilos;
                                         precioTotalTrigo += totalCompra;
                                         inventarioTrigo -= cantidadKilos;
+
+                                        kilosTrigoReporte += cantidadKilos;
                                         break;
                                     case 4:
                                         kilosMaizVendidos += cantidadKilos;
                                         precioTotalMaiz += totalCompra;
                                         inventarioMaiz -= cantidadKilos;
+
+                                        kilosMaizReporte += cantidadKilos;
                                         break;
                                 }
                                 System.out.println();
@@ -441,6 +454,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                         if (precioSubtotal > 0) { //verificar que el usuario haya comprado algo
 
                             numeroFacturaVentas++;
+                            numeroVentas++;
 
                             Thread.sleep(500);
                             System.out.println();
@@ -486,13 +500,20 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             precioSubtotal -= descuento;
                             isv = precioSubtotal * 0.07; //se calcula el ISV después del descuento
                             precioTotal = precioSubtotal + isv;
-                            efectivoTotal += precioTotal;
 
                             System.out.printf("| Descuento: %d%%      Lps. %11.2f |\n", porcentajeDescuento, descuento);
                             System.out.printf("| ISV: 7%%            Lps. %11.2f |\n", isv);
                             System.out.println("+-------------------------------------+");
                             System.out.printf("| Total a pagar:     Lps. %11.2f |\n", precioTotal);
                             System.out.println("+-------------------------------------+");
+
+                            efectivoTotal += precioTotal;
+                            volumenVentas += precioTotal;
+
+                            if (precioTotal > ventaMayor) { //verificar si la venta ha sido la más grande hasta el momento
+                                ventaMayor = precioTotal;
+                                numeroVentaMayor = numeroFacturaVentas;
+                            }
 
                         }
 
@@ -707,13 +728,13 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             inventarioTrigo += kilosTrigoComprados;
                             inventarioMaiz += kilosMaizComprados;
 
-                            efectivoTotal -= precioTotal; //se resta el efectivo en caja
-
                             //Acorde al tipo de cliente, se despliega un valor u otro al producto avena
                             precioAvenaFacturar = (tipoProveedor.equals("B")) ? precioCompraAvenaB : precioCompraAvenaC;
 
                             numeroFacturaProveedor++;
-                            Thread.sleep(300);
+                            numeroCompras++;
+
+                            Thread.sleep(500);
                             System.out.println();
                             System.out.println("+-------------------------------------+");
                             System.out.println("|                FACTURA              |");
@@ -750,6 +771,14 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             System.out.printf("| Total a pagar:     Lps. %11.2f |\n", precioTotal);
                             System.out.println("+-------------------------------------+");
 
+                            efectivoTotal -= precioTotal;
+                            volumenCompras += precioTotal;
+
+                            if (precioTotal > compraMayor) { //verificar si la compra ha sido la más grande hasta el momento
+                                compraMayor = precioTotal;
+                                numeroCompraMayor = numeroFacturaProveedor;
+                            }
+
                         } else {
                             System.out.println();
                             System.out.println("No se realizaron compras.");
@@ -763,12 +792,98 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             System.out.println("Debe depositar efectivo en caja antes de crear un reporte.");
                             break;
                         }
-                        
+
                         System.out.println();
-                        System.out.println("+-------------------------------------+");
-                        System.out.println("|       === REPORTE DEL DÍA===        |");
-                        System.out.println("+-------------------------------------+");
-                        
+                        System.out.println("========================= REPORTE DEL DÍA =========================\n");
+
+                        if (numeroCompras > 0) {
+                            System.out.printf("%-30s %14d\n", "Compras realizadas:", numeroCompras);
+                        } else {
+                            System.out.println("No se realizaron compras.");
+                        }
+
+                        if (numeroVentas > 0) {
+                            System.out.printf("%-30s %14d\n", "Ventas realizadas:", numeroVentas);
+                        } else {
+                            System.out.println("No se realizaron ventas.");
+                        }
+
+                        if (volumenVentas > 0) {
+                            System.out.printf("%-30s Lps. %14.2f\n", "Volumen de ventas:", volumenVentas);
+                        }
+
+                        if (volumenCompras > 0) {
+                            System.out.printf("%-30s Lps. %14.2f\n", "Volumen de compras:", volumenCompras);
+                        }
+
+                        if (volumenVentas > 0 || volumenCompras > 0) {
+                            System.out.printf("%-30s Lps. %14.2f\n", "Margen de ganancia:", volumenVentas - volumenCompras);
+                        }
+
+                        if (numeroVentas > 0) {
+                            System.out.printf("%-30s Lps. %14.2f\n", "Promedio de ventas:", volumenVentas / numeroVentas);
+                        }
+
+                        if (numeroCompras > 0) {
+                            System.out.printf("%-30s Lps. %14.2f\n", "Promedio de compras:", volumenCompras / numeroCompras);
+                        }
+
+                        if (ventaMayor > 0) {
+                            System.out.printf("%-30s Lps. %14.2f (No. Factura: %d)\n", "Venta con mayor ganancia:", ventaMayor, numeroVentaMayor);
+                        }
+
+                        if (compraMayor > 0) {
+                            System.out.printf("%-30s Lps. %14.2f (No. Factura: %d)\n", "Compra de mayor gasto:", compraMayor, numeroCompraMayor);
+                        }
+
+                        System.out.printf("%-30s Lps. %14.2f\n", "Efectivo en caja:", efectivoTotal);
+
+                        double max = kilosAzucarReporte;
+                        if (kilosAvenaReporte > max) {
+                            max = kilosAvenaReporte;
+                        }
+                        if (kilosTrigoReporte > max) {
+                            max = kilosTrigoReporte;
+                        }
+                        if (kilosMaizReporte > max) {
+                            max = kilosMaizReporte;
+                        }
+
+                        if (max > 0) {
+                            System.out.println();
+                            System.out.print("Producto estrella: ");
+                            boolean primero = true;
+
+                            if (kilosAzucarReporte == max) {
+                                System.out.print("Azúcar");
+                                primero = false;
+                            }
+                            if (kilosAvenaReporte == max) {
+                                if (!primero) {
+                                    System.out.print(", ");
+                                }
+                                System.out.print("Avena");
+                                primero = false;
+                            }
+                            if (kilosTrigoReporte == max) {
+                                if (!primero) {
+                                    System.out.print(", ");
+                                }
+                                System.out.print("Trigo");
+                                primero = false;
+                            }
+                            if (kilosMaizReporte == max) {
+                                if (!primero) {
+                                    System.out.print(", ");
+                                }
+                                System.out.print("Maíz");
+                            }
+                            System.out.printf(" (%.2f kg)\n", max);
+                        }
+
+                        System.out.println();
+                        System.out.println("========================= FIN DEL REPORTE =========================");
+
                         break;
 
                     case 5:
