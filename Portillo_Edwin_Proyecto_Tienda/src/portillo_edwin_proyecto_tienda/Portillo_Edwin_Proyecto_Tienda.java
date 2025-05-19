@@ -19,7 +19,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
         //variables de reporte
         double volumenCompras = 0, volumenVentas = 0, ventaMayor = 0, compraMayor = 0,
                 kilosAzucarReporte = 0, kilosAvenaReporte = 0, kilosTrigoReporte = 0, kilosMaizReporte = 0;
-        int numeroVentaMayor = 0, numeroCompraMayor = 0, ventasProductoEstrella = 0;
+        int numeroVentaMayor = 0, numeroCompraMayor = 0;
 
         // Variables para operaciones de compra y venta
         String seguirComprando, nombreProducto = "", cerrarCaja;
@@ -789,10 +789,11 @@ public class Portillo_Edwin_Proyecto_Tienda {
                     case 4:
                         //Verificación que haya efectivo en caja
                         if (!cajaAbierta) {
-                            System.out.println("Debe depositar efectivo en caja antes de crear un reporte.");
+                            System.out.println("Debe abrir caja antes de crear un reporte.");
                             break;
                         }
 
+                        Thread.sleep(500);
                         System.out.println();
                         System.out.println("========================= REPORTE DEL DÍA =========================\n");
 
@@ -938,6 +939,20 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                         efectivoTotal -= efectivoIngresado;
                                         cajaAbiertaAntes = true;
                                         cajaAbierta = false;
+
+                                        //reseteo de variables de reporte
+                                        volumenCompras = 0;
+                                        volumenVentas = 0;
+                                        ventaMayor = 0;
+                                        compraMayor = 0;
+                                        kilosAzucarReporte = 0;
+                                        kilosAvenaReporte = 0;
+                                        kilosTrigoReporte = 0;
+                                        kilosMaizReporte = 0;
+                                        numeroVentaMayor = 0;
+                                        numeroCompraMayor = 0;
+                                        numeroVentas = 0;
+                                        numeroCompras = 0;
                                         break;
                                     }
 
