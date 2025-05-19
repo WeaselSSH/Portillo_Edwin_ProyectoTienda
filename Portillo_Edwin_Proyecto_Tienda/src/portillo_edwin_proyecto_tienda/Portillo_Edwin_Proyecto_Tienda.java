@@ -13,19 +13,28 @@ public class Portillo_Edwin_Proyecto_Tienda {
         // Variables relacionadas al control general del sistema
         boolean cajaAbierta = false, cajaAbiertaAntes = false;
 
+        double efectivoIngresado, efectivoTotal = 0, efectivoDepositado = 0;
+
         int opcion = 0;
-        double efectivoIngresado = 0, efectivoTotal = 0, efectivoDepositado = 0;
 
         //variables de reporte
-        double volumenCompras = 0, volumenVentas = 0, ventaMayor = 0, compraMayor = 0,
-                kilosAzucarReporte = 0, kilosAvenaReporte = 0, kilosTrigoReporte = 0, kilosMaizReporte = 0;
+        double volumenCompras = 0, volumenVentas = 0;
+        double ventaMayor = 0, compraMayor = 0;
+        double kilosAzucarReporte = 0, kilosAvenaReporte = 0, kilosTrigoReporte = 0, kilosMaizReporte = 0;
+
         int numeroVentaMayor = 0, numeroCompraMayor = 0;
 
         // Variables para operaciones de compra y venta
-        String seguirComprando, nombreProducto = "", cerrarCaja;
+        String seguirComprando;
+        String nombreProducto = "";
+        String cerrarCaja;
+
         boolean continuarComprando;
 
-        int codigoProducto, porcentajeDescuento, numeroFacturaVentas = 0, numeroFacturaProveedor = 0, numeroCompras = 0, numeroVentas = 0;
+        int codigoProducto;
+        int porcentajeDescuento;
+        int numeroFacturaVentas = 0, numeroFacturaProveedor = 0, numeroCompras = 0, numeroVentas = 0;
+
         double descuento, precioTotal, isv, totalCompra, cantidadKilos, precioSubtotal, precioUnitario = 0;
         double precioTotalAzucar, precioTotalAvena, precioTotalTrigo, precioTotalMaiz;
         double inventarioAzucar = 10, inventarioAvena = 0, inventarioTrigo = 0, inventarioMaiz = 0;
@@ -137,14 +146,16 @@ public class Portillo_Edwin_Proyecto_Tienda {
 
                         //Variables generales
                         String tipoCliente;
+
                         double inventarioDisponible = 0;
 
                         //Variables relacionadas a los datos de producto
                         double kilosAzucarVendidos = 0,
                          kilosAvenaVendidos = 0,
                          kilosTrigoVendidos = 0,
-                         kilosMaizVendidos = 0,
-                         precioVentaAzucar = 30,
+                         kilosMaizVendidos = 0;
+
+                        double precioVentaAzucar = 30,
                          precioVentaAvena = 25,
                          precioVentaTrigo = 32,
                          precioVentaMaiz = 20;
@@ -187,7 +198,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             System.out.println();
                             System.out.print(">> Ingrese el código del producto a comprar: ");
 
-                            while (!scanner.hasNextInt()) {
+                            while (!scanner.hasNextInt()) { //validar que el valor ingresado sea un número
                                 Thread.sleep(500);
                                 System.out.println();
                                 System.out.println(">> Código de producto inválido.");
@@ -219,8 +230,9 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                         System.out.println();
                                         System.out.print(">> ¿Desea seguir comprando? (si/no): ");
                                         seguirComprando = scanner.next().strip();
-
-                                        while (!seguirComprando.equalsIgnoreCase("si") && !seguirComprando.equalsIgnoreCase("no")) { //validar que el usuario ingrese una opción correcta
+                                        
+                                        //Bucle para validar que el usuario ingrese una opción correcta
+                                        while (!seguirComprando.equalsIgnoreCase("si") && !seguirComprando.equalsIgnoreCase("no")) { 
                                             System.out.print(">> Entrada inválida. Escriba 'si' para sí o 'no' para no: ");
                                             seguirComprando = scanner.next().strip();
                                         }
@@ -245,8 +257,8 @@ public class Portillo_Edwin_Proyecto_Tienda {
 
                                     } else {
                                         nombreProducto = "Azúcar";
-                                        precioUnitario = precioVentaAzucar; //asignación del precio de venta del producto a la variable general precioUnitario
-                                        inventarioDisponible = inventarioAzucar; //asignación del inventario disponible del producto a la variable general inventarioDisponible
+                                        precioUnitario = precioVentaAzucar;
+                                        inventarioDisponible = inventarioAzucar;
                                     }
                                     break;
 
@@ -413,7 +425,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                         precioTotalAzucar += totalCompra;
                                         inventarioAzucar -= cantidadKilos;
 
-                                        kilosAzucarReporte += cantidadKilos; //contador para verificar producto estrella en reporte del día
+                                        kilosAzucarReporte += cantidadKilos; //contador para verificar producto estrella en case reporte
                                         break;
                                     case 2:
                                         kilosAvenaVendidos += cantidadKilos;
@@ -466,25 +478,25 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             //Mostrar datos de los proudctos comprados por el cliente
                             if (kilosAzucarVendidos > 0) {
                                 System.out.println("+-------------------------------------+");
-                                System.out.printf("| Azúcar:            KG %13.2f |\n", kilosAzucarVendidos); //alinear texto a la derechar
+                                System.out.printf("| Azúcar:            Kg. %13.2f |\n", kilosAzucarVendidos); //alinear texto a la derechar
                                 System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioVentaAzucar);
                                 System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalAzucar);
                             }
                             if (kilosAvenaVendidos > 0) {
                                 System.out.println("+-------------------------------------+");
-                                System.out.printf("| Avena:             KG %13.2f |\n", kilosAvenaVendidos);
+                                System.out.printf("| Avena:             Kg. %13.2f |\n", kilosAvenaVendidos);
                                 System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioVentaAvena);
                                 System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalAvena);
                             }
                             if (kilosTrigoVendidos > 0) {
                                 System.out.println("+-------------------------------------+");
-                                System.out.printf("| Trigo:             KG %13.2f |\n", kilosTrigoVendidos);
+                                System.out.printf("| Trigo:             Kg. %13.2f |\n", kilosTrigoVendidos);
                                 System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioVentaTrigo);
                                 System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalTrigo);
                             }
                             if (kilosMaizVendidos > 0) {
                                 System.out.println("+-------------------------------------+");
-                                System.out.printf("| Maíz:              KG %13.2f |\n", kilosMaizVendidos);
+                                System.out.printf("| Maíz:              Kg. %13.2f |\n", kilosMaizVendidos);
                                 System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioVentaMaiz);
                                 System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalMaiz);
                             }
@@ -496,6 +508,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             //if ternario para verificar cuanto descuento se le otorgará al usuario
                             porcentajeDescuento = (precioSubtotal > 5000) ? 10 : (precioSubtotal >= 1000) ? 5 : 0;
 
+                            //Calculo del total a pagar
                             descuento = precioSubtotal * (porcentajeDescuento / 100.0);
                             precioSubtotal -= descuento;
                             isv = precioSubtotal * 0.07; //se calcula el ISV después del descuento
@@ -744,13 +757,13 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             //Mostrar datos de los proudctos comprados por el cliente
                             if (kilosAzucarComprados > 0) {
                                 System.out.println("+-------------------------------------+");
-                                System.out.printf("| Azúcar:            KG %13.2f |\n", kilosAzucarComprados); //alinear texto a la derechar
+                                System.out.printf("| Azúcar:            Kg. %13.2f |\n", kilosAzucarComprados); //alinear texto a la derechar
                                 System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioCompraAzucar);
                                 System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalAzucar);
                             }
                             if (kilosAvenaComprados > 0) {
                                 System.out.println("+-------------------------------------+");
-                                System.out.printf("| Avena:             KG %13.2f |\n", kilosAvenaComprados);
+                                System.out.printf("| Avena:             Kg. %13.2f |\n", kilosAvenaComprados);
                                 System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioAvenaFacturar);
                                 System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalAvena);
                             }
@@ -762,7 +775,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             }
                             if (kilosMaizComprados > 0) {
                                 System.out.println("+-------------------------------------+");
-                                System.out.printf("| Maíz:              KG %13.2f |\n", kilosMaizComprados);
+                                System.out.printf("| Maíz:              Kg. %13.2f |\n", kilosMaizComprados);
                                 System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioCompraMaiz);
                                 System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalMaiz);
                             }
