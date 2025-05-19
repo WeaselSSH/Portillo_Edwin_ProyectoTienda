@@ -82,13 +82,13 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             cajaAbierta = true;
                             break;
                         }
+                        
+                        if (!cajaAbierta) { //mostrar el mensaje solo si se abre caja por primera vez
+                            System.out.println();
+                            System.out.println(">> Caja abierta exitosamente.");
+                        }
 
                         while (efectivoIngresado <= 0) {
-
-                            if (!cajaAbierta) { //mostrar el mensaje solo si se abre caja por primera vez
-                                System.out.println();
-                                System.out.println(">> Caja abierta exitosamente.");
-                            }
 
                             System.out.println();
                             System.out.print(">> Ingrese la cantidad de efectivo a guardar (Lps): ");
@@ -989,7 +989,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                         break;
 
                     case 6:
-                        //Verificación que caja haya sido cerrada antes de salir
+
                         Thread.sleep(500);
                         System.out.println();
                         System.out.println(">> Saliendo del sistema...");
