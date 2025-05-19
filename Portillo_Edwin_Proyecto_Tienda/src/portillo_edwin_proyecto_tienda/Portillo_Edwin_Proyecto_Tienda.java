@@ -23,7 +23,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
         int codigoProducto, porcentajeDescuento, numeroFacturaVentas = 0, numeroFacturaProveedor = 0;
         double descuento, precioTotal, isv, totalCompra, cantidadKilos, precioSubtotal, precioUnitario = 0;
         double precioTotalAzucar, precioTotalAvena, precioTotalTrigo, precioTotalMaiz;
-        double inventarioAzucar = 10, inventarioAvena = 10, inventarioTrigo = 10, inventarioMaiz = 10;
+        double inventarioAzucar = 10, inventarioAvena = 0, inventarioTrigo = 0, inventarioMaiz = 0;
 
         //Menú de inicio
         System.out.println();
@@ -95,6 +95,8 @@ public class Portillo_Edwin_Proyecto_Tienda {
                         break;
 
                     case 2:
+
+                        //Verificación que haya inventario y que caja esta esté abierta
                         if (!cajaAbierta) {
                             System.out.println();
                             System.out.println(">> Error: No puede realizar ventas.");
@@ -119,12 +121,12 @@ public class Portillo_Edwin_Proyecto_Tienda {
                         double kilosAzucarVendidos = 0,
                          kilosAvenaVendidos = 0,
                          kilosTrigoVendidos = 0,
+                         kilosMaizVendidos = 0,
                          precioVentaAzucar = 30,
                          precioVentaAvena = 25,
                          precioVentaTrigo = 32,
-                         precioVentaMaiz = 20,
+                         precioVentaMaiz = 20;
 
-                         kilosMaizVendidos = 0;
                         precioTotalAzucar = 0;
                         precioTotalAvena = 0;
                         precioTotalTrigo = 0;
@@ -176,7 +178,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                     if (tipoCliente.equals("C")) {
                                         System.out.println();
                                         System.out.println(">> Cliente 'C' no puede comprar azúcar.");
-                                        permitido = false; //si permitido es false, no se pasa al bloque de compra de producto
+                                        permitido = false; //si permitido es false, no se pasa al bloque de venta de producto
 
                                         System.out.println();
                                         System.out.print(">> ¿Desea seguir comprando? (si/no): ");
@@ -362,7 +364,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                         System.out.println(">> Error: La cantidad debe ser mayor a 0.");
                                     } else if (cantidadKilos > inventarioDisponible) {
                                         System.out.println();
-                                        System.out.printf(">> No hay suficiente %s. inventario actual: %.2f kg%n", nombreProducto, inventarioDisponible);
+                                        System.out.printf(">> No hay suficiente %s. Inventario actual: %.2f kg%n", nombreProducto, inventarioDisponible);
                                     }
                                 }
 
@@ -396,6 +398,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                 seguirComprando = scanner.next().strip();
 
                                 while (!seguirComprando.equalsIgnoreCase("si") && !seguirComprando.equalsIgnoreCase("no")) {
+                                    System.out.println();
                                     System.out.print(">> Entrada inválida. Escriba 'si' para sí o 'no' para no: ");
                                     seguirComprando = scanner.next().strip();
                                 }
@@ -409,6 +412,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             numeroFacturaVentas++;
 
                             Thread.sleep(300);
+                            System.out.println();
                             System.out.println("+-------------------------------------+");
                             System.out.println("|                FACTURA              |");
                             System.out.println("+-------------------------------------+");
@@ -464,54 +468,81 @@ public class Portillo_Edwin_Proyecto_Tienda {
                         break;
 
                     case 3:
-                        //Verificación que haya efectivo en caja
+                        //Verificación que haya efectivo en caja y que esta esté abierta
                         if (!cajaAbierta) {
-                            System.out.println("Debe depositar efectivo en caja antes de realizar compras.");
+                            System.out.println();
+                            System.out.println(">> Error: No puede realizar compras.");
+                            System.out.println();
+                            System.out.println(">> La caja no ha sido abierta aún.");
                             break;
                         }
 
                         if (efectivoTotal <= 0) {
-                            System.out.println("No hay efectivo en caja.");
+                            System.out.println();
+                            System.out.println(">> Error: No hay efectivo en caja actualmente.");
                             break;
                         }
-                        //Variables principales
-                        String tipoProveedor;
 
-                        //Datos por producto
+                        //Variables generales
+                        String tipoProveedor;
+                        cantidadKilos = 0;
+
+                        //Variables relacionadas a los datos de producto
                         double kilosAzucarComprados = 0,
                          kilosAvenaComprados = 0,
                          kilosTrigoComprados = 0,
-                         kilosMaizComprados = 0;
+                         kilosMaizComprados = 0,
+                         precioCompraAzucar = 25,
+                         precioCompraAvenaB = 20,
+                         precioCompraAvenaC = 22,
+                         precioCompraTrigo = 30,
+                         precioCompraMaiz = 18,
+                         precioAvenaFacturar = 0;
+
                         precioTotalAzucar = 0;
                         precioTotalAvena = 0;
                         precioTotalTrigo = 0;
                         precioTotalMaiz = 0;
                         precioTotal = 0;
 
-                        cantidadKilos = 0;
+                        Thread.sleep(300);
+                        System.out.println();
+                        System.out.println("+-------------------------------------+");
+                        System.out.println("|            === COMPRAS ===          |");
+                        System.out.println("+-------------------------------------+");
 
-                        System.out.println("Compras seleccionado.");
-                        System.out.print("Favor ingrese el tipo de proveedor (A, B, C): ");
+                        System.out.println();
+                        System.out.println(">> Compras seleccionado.");
+                        System.out.println();
+                        System.out.print(">> Favor ingrese el tipo de proveedor (A, B, C): ");
                         tipoProveedor = scanner.next().strip().toUpperCase();
 
                         //Validación para que la letra ingresada sea la correcta
                         while (!tipoProveedor.equals("A") && !tipoProveedor.equals("B") && !tipoProveedor.equals("C")) {
-                            System.out.print("Tipo de proveedor inválido. Ingrese 'A', 'B' o 'C': ");
+                            System.out.println();
+                            System.out.print(">> Tipo de proveedor inválido. Ingrese 'A', 'B' o 'C': ");
                             tipoProveedor = scanner.next().strip().toUpperCase();
                         }
 
-                        //Bucle de compra
+                        //Bucle de compra de productos
                         continuarComprando = true;
                         while (continuarComprando) {
-                            System.out.println("1. Azúcar");
-                            System.out.println("2. Avena");
-                            System.out.println("3. Trigo");
-                            System.out.println("4. Maíz");
-                            System.out.print("Ingrese el código del producto a comprar: ");
+                            Thread.sleep(300);
+                            System.out.println();
+                            System.out.println("+-------------------------------------+");
+                            System.out.println("|    === SELECCIÓN DE PRODUCTO ===    |");
+                            System.out.println("+-------------------------------------+");
+                            System.out.println("| 1. Azúcar                           |");
+                            System.out.println("| 2. Avena                            |");
+                            System.out.println("| 3. Trigo                            |");
+                            System.out.println("| 4. Maíz                             |");
+                            System.out.println("+-------------------------------------+");
+                            System.out.println();
+                            System.out.print(">> Ingrese el código del producto a comprar: ");
 
-                            //Validación para que el código seleccionado sea válido
                             while (!scanner.hasNextInt()) {
-                                System.out.print("Opción inválida. Ingrese un código de producto válido: ");
+                                System.out.println();
+                                System.out.print(">> Opción inválida. Ingrese un código de producto válido: ");
                                 scanner.next();
                             }
                             codigoProducto = scanner.nextInt();
@@ -520,88 +551,95 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             switch (codigoProducto) {
                                 case 1:
                                     if (tipoProveedor.equals("B") || tipoProveedor.equals("C")) {
-                                        System.out.println("Solo el proveedor tipo 'A' puede vender azúcar.");
-                                        permitido = false;
+                                        System.out.println();
+                                        System.out.println(">> Proveedor no vende dicho producto.");
+                                        permitido = false; //si permitido es false, no se pasa al bloque de compra de producto
                                     } else {
                                         nombreProducto = "Azúcar";
-                                        precioUnitario = 30;
+                                        precioUnitario = precioCompraAzucar;
                                     }
                                     break;
 
                                 case 2:
                                     if (tipoProveedor.equals("A")) {
-                                        System.out.println("Proveedor 'A' no puede comprar avena.");
+                                        System.out.println();
+                                        System.out.println(">> Proveedor no vende dicho producto.");
                                         permitido = false;
                                     } else {
                                         nombreProducto = "Avena";
-                                        precioUnitario = 25;
+                                        //se verifica cual es el tipo de cliente y acorde a eso se le asigna un valor u otro al precio unitario
+                                        precioUnitario = (tipoProveedor.equals("B") ? precioCompraAvenaB : precioCompraAvenaC);
                                     }
                                     break;
 
                                 case 3:
                                     if (tipoProveedor.equals("C") || tipoProveedor.equals("A")) {
-                                        System.out.println("Solo el proveedor tipo 'B' puede vender trigo.");
+                                        System.out.println();
+                                        System.out.println(">> Proveedor no vende dicho producto.");
                                         permitido = false;
                                     } else {
                                         nombreProducto = "Trigo";
-                                        precioUnitario = 32;
+                                        precioUnitario = precioCompraTrigo;
                                     }
                                     break;
 
                                 case 4:
                                     if (tipoProveedor.equals("B") || tipoProveedor.equals("C")) {
-                                        System.out.println("Solo el proveedor tipo 'A' puede vender maíz.");
+                                        System.out.println();
+                                        System.out.println(">> Proveedor no vende dicho producto.");
                                         permitido = false;
                                     } else {
                                         nombreProducto = "Maíz";
-                                        precioUnitario = 20;
+                                        precioUnitario = precioCompraMaiz;
                                     }
                                     break;
 
                                 default:
-                                    System.out.println("Código de producto inválido.");
+                                    System.out.println(">> Código de producto inválido.");
                                     permitido = false;
                                     break;
                             }
 
-                            //Proceso de Facturación
                             if (permitido) {
-                                System.out.printf("Nombre del producto: %s\n", nombreProducto);
-                                System.out.printf("Precio unitario (kg): Lps. %.2f\n", precioUnitario);
+                                System.out.printf(">> Nombre del producto: %s\n", nombreProducto);
+                                System.out.printf(">> Precio unitario (kg): Lps. %.2f\n", precioUnitario);
 
                                 while (cantidadKilos <= 0) {
-                                    System.out.print("Ingrese la cantidad de kilos a comprar (debe ser mayor que 0): ");
+                                    System.out.println();
+                                    System.out.print(">> Ingrese la cantidad de kilos a comprar (debe ser mayor que 0): ");
                                     while (!scanner.hasNextDouble()) {
-                                        System.out.println("Valor inválido. Ingrese solo datos numéricos:");
+                                        System.out.println();
+                                        System.out.print(">> Valor inválido. Ingrese solo datos numéricos: ");
                                         scanner.next();
                                     }
 
                                     cantidadKilos = scanner.nextDouble();
+
+                                    if (cantidadKilos <= 0) {
+                                        System.out.println();
+                                        System.out.println(">>Error: La cantidad debe ser mayor a 0.");
+                                    }
                                 }
 
                                 totalCompra = cantidadKilos * precioUnitario;
                                 precioTotal += totalCompra;
 
-                                switch (codigoProducto) {
+                                switch (codigoProducto) { //Añadir los kilos comprados a su respectivo proudcto y añadirlos al inventario
                                     case 1:
                                         kilosAzucarComprados += cantidadKilos;
                                         precioTotalAzucar += totalCompra;
-                                        inventarioAzucar += kilosAzucarComprados;
                                         break;
                                     case 2:
                                         kilosAvenaComprados += cantidadKilos;
                                         precioTotalAvena += totalCompra;
-                                        inventarioAvena += kilosAvenaComprados;
                                         break;
                                     case 3:
                                         kilosTrigoComprados += cantidadKilos;
                                         precioTotalTrigo += totalCompra;
-                                        inventarioTrigo += kilosTrigoComprados;
                                         break;
                                     case 4:
                                         kilosMaizComprados += cantidadKilos;
                                         precioTotalMaiz += totalCompra;
-                                        inventarioMaiz += kilosMaizComprados;
                                         break;
                                 }
 
@@ -609,42 +647,65 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             }
                         }
 
-                        if (precioTotal > 0) {
+                        if (precioTotal > 0) { //Validar que el usuario haya comprado algo
 
                             if (efectivoTotal < precioTotal) {
-                                System.out.println("Error: no hay efectivo suficiente en caja.");
+                                System.out.println();
+                                System.out.println(">> Error: No se puede pagar compra.");
                                 break;
                             }
 
-                            numeroFacturaProveedor++;
-                            System.out.println("-------Factura-------\n");
-                            System.out.printf("No. Factura: %d\n", numeroFacturaProveedor);
+                            // Si hay efectivo suficiente, se actualiza el inventario
+                            inventarioAzucar += kilosAzucarComprados;
+                            inventarioAvena += kilosAvenaComprados;
+                            inventarioTrigo += kilosTrigoComprados;
+                            inventarioMaiz += kilosMaizComprados;
+                            
+                            efectivoTotal -= precioTotal; //se resta el efectivo en caja
 
+                            //Acorde al tipo de cliente, se despliega un valor u otro al producto avena
+                            precioAvenaFacturar = (tipoProveedor.equals("B")) ? precioCompraAvenaB : precioCompraAvenaC;
+
+                            numeroFacturaProveedor++;
+                            Thread.sleep(300);
+                            System.out.println();
+                            System.out.println("+-------------------------------------+");
+                            System.out.println("|                FACTURA              |");
+                            System.out.println("+-------------------------------------+");
+                            System.out.printf("| No. Factura: %-22d |\n", numeroFacturaProveedor); //alinear texto a la izquierda
+
+                            //Mostrar datos de los proudctos comprados por el cliente
                             if (kilosAzucarComprados > 0) {
-                                System.out.printf("Azúcar: %.2f kg | Precio Unitario: Lps. 30.00 | Total: Lps. %.2f\n", kilosAzucarComprados, precioTotalAzucar);
+                                System.out.println("+-------------------------------------+");
+                                System.out.printf("| Azúcar:            KG %13.2f |\n", kilosAzucarComprados); //alinear texto a la derechar
+                                System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioCompraAzucar);
+                                System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalAzucar);
                             }
                             if (kilosAvenaComprados > 0) {
-                                System.out.printf("Avena: %.2f kg | Precio Unitario: Lps. 25.00 | Total: Lps. %.2f\n", kilosAvenaComprados, precioTotalAvena);
+                                System.out.println("+-------------------------------------+");
+                                System.out.printf("| Avena:             KG %13.2f |\n", kilosAvenaComprados);
+                                System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioAvenaFacturar);
+                                System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalAvena);
                             }
                             if (kilosTrigoComprados > 0) {
-                                System.out.printf("Trigo: %.2f kg | Precio Unitario: Lps. 32.00 | Total: Lps. %.2f\n", kilosTrigoComprados, precioTotalTrigo);
+                                System.out.println("+-------------------------------------+");
+                                System.out.printf("| Trigo:             KG %13.2f |\n", kilosTrigoComprados);
+                                System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioCompraTrigo);
+                                System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalTrigo);
                             }
                             if (kilosMaizComprados > 0) {
-                                System.out.printf("Maíz: %.2f kg | Precio Unitario: Lps. 20.00 | Total: Lps. %.2f\n", kilosMaizComprados, precioTotalMaiz);
+                                System.out.println("+-------------------------------------+");
+                                System.out.printf("| Maíz:              KG %13.2f |\n", kilosMaizComprados);
+                                System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioCompraMaiz);
+                                System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalMaiz);
                             }
 
-                            System.out.printf("Total a pagar: %.2f\n", precioTotal);
-
-                            efectivoTotal -= precioTotal;
-
-                            System.out.printf("El efectivo total en caja es de: Lps.%.2f\n", efectivoTotal);
-                            System.out.println("Inventario actual:");
-                            System.out.printf("1. Azúcar: %.2f \n", inventarioAzucar);
-                            System.out.printf("2. Avena: %.2f \n", inventarioAvena);
-                            System.out.printf("3. Trigo: %.2f \n", inventarioTrigo);
-                            System.out.printf("4. Maíz: %.2f \n", inventarioMaiz);
+                            System.out.println("+-------------------------------------+");
+                            System.out.printf("| Total a pagar:     Lps. %11.2f |\n", precioTotal);
+                            System.out.println("+-------------------------------------+");
 
                         } else {
+                            System.out.println();
                             System.out.println("No se realizaron compras.");
                         }
 
