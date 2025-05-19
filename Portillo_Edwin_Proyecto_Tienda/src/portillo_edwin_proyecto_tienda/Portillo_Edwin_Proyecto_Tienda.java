@@ -11,10 +11,10 @@ public class Portillo_Edwin_Proyecto_Tienda {
         scanner.useDelimiter("\n"); //se usa como delimiter \n con el fin que scanner.next() pueda leer más alla de los espacios
 
         // Variables relacionadas al control general del sistema
-        boolean cajaAbierta = false;
+        boolean cajaAbierta = false, cajaAbiertaAntes = false;
 
         int opcion = 0;
-        double efectivoIngresado = 0, efectivoTotal = 0;
+        double efectivoIngresado = 0, efectivoTotal = 0, efectivoDepositado = 0;
 
         // Variables para operaciones de compra y venta
         String seguirComprando, nombreProducto = "", cerrarCaja;
@@ -28,7 +28,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
         //Menú de inicio
         System.out.println();
         System.out.println("+-------------------------------------+");
-        System.out.println("|   Bienvenido a la Victitiendita!    |");
+        System.out.println("|   BIENVENIDO A LA VICTITIENDITA!    |");
         System.out.println("+-------------------------------------+");
 
         // Bucle del menú principal que continua hasta que el usuario seleccione la opción 6
@@ -41,7 +41,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
             System.out.println("| 1. Abrir Caja                       |");
             System.out.println("| 2. Ventas                           |");
             System.out.println("| 3. Compras                          |");
-            System.out.println("| 4. Reportes                         |");
+            System.out.println("| 4. Reporte                          |");
             System.out.println("| 5. Cierre de Caja                   |");
             System.out.println("| 6. Salir del Sistema                |");
             System.out.println("+-------------------------------------+");
@@ -53,13 +53,29 @@ public class Portillo_Edwin_Proyecto_Tienda {
 
                 switch (opcion) { //switch con las opciones mostradas previamente
                     case 1:
+                        efectivoIngresado = 0; //reinicio de variable
+                        
                         Thread.sleep(500);
                         System.out.println();
                         System.out.println("+-------------------------------------+");
                         System.out.println("|           === ABRIR CAJA ===        |");
                         System.out.println("+-------------------------------------+");
+                        
+                        if (cajaAbiertaAntes) { //verificar si la caja ha sido abierta previamente
+                            System.out.println();
+                            System.out.println(">> Caja abierta exitosamente.");
+                            cajaAbiertaAntes = false;
+                            cajaAbierta = true;
+                            break;
+                        }
 
                         while (efectivoIngresado <= 0) {
+                            
+                            if (!cajaAbierta) { //mostrar el mensaje solo si se abre caja por primera vez
+                            System.out.println();
+                            System.out.println(">> Caja abierta exitosamente.");
+                            }
+                            
                             System.out.println();
                             System.out.print(">> Ingrese la cantidad de efectivo a guardar (Lps): ");
 
@@ -170,7 +186,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                 Thread.sleep(500);
                                 System.out.println();
                                 System.out.println(">> Código de producto inválido.");
-                                
+
                                 //Se despliega el menú nuevamente 
                                 System.out.println();
                                 System.out.println("+-------------------------------------+");
@@ -559,7 +575,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                 Thread.sleep(500);
                                 System.out.println();
                                 System.out.println(">> Código de producto inválido.");
-                                
+
                                 //Se despliega el menú nuevamente 
                                 System.out.println();
                                 System.out.println("+-------------------------------------+");
@@ -747,48 +763,80 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             System.out.println("Debe depositar efectivo en caja antes de crear un reporte.");
                             break;
                         }
-                        System.out.println("Reportes seleccionado");
+                        
+                        System.out.println();
+                        System.out.println("+-------------------------------------+");
+                        System.out.println("|       === REPORTE DEL DÍA===        |");
+                        System.out.println("+-------------------------------------+");
+                        
                         break;
 
                     case 5:
                         //Verificación que haya efectivo en caja
                         if (!cajaAbierta) {
-                            System.out.println("Debe depositar efectivo en caja antes de cerrar caja.");
+                            System.out.println();
+                            System.out.println(">> Error: Debe abrir la caja antes de cerrarla.");
                             break;
                         }
 
-                        double efectivoDepositado;
-                        double porcentajeMaximo = (efectivoTotal / 100) * 60;
+                        //Declaración de variables
+                        double porcentajeMaximo = (efectivoTotal / 100) * 60; //cálculo del porcentaje máximo que se puede depositar
 
-                        System.out.println("Cierre de caja seleccionado");
+                        Thread.sleep(500);
+                        System.out.println();
+                        System.out.println("+-------------------------------------+");
+                        System.out.println("|          === CERRAR CAJA ===        |");
+                        System.out.println("+-------------------------------------+");
 
-                        System.out.print("Desea cerrar la caja? (S para confirmar, cualquier otra tecla para cancelar): ");
-                        cerrarCaja = scanner.next();
+                        System.out.println();
+                        System.out.print("¿Desea cerrar la caja? (si/no): ");
+                        cerrarCaja = scanner.next().strip();
 
-                        if (cerrarCaja.equalsIgnoreCase("S")) {
-                            System.out.println("Efectivo total en caja: " + efectivoTotal);
-                            System.out.printf("Ingrese la cantidad de efectivo que desea depositar en el banco (debe ser menor al 60%% (%.2f))\n", porcentajeMaximo);
+                        while (!cerrarCaja.equalsIgnoreCase("si") && !cerrarCaja.equalsIgnoreCase("no")) {
+                            System.out.println();
+                            System.out.print(">> Entrada inválida. Escriba 'si' para sí o 'no' para no: ");
+                            cerrarCaja = scanner.next().strip();
+                        }
 
-                            try {
-                                efectivoIngresado = scanner.nextDouble();
+                        if (cerrarCaja.equalsIgnoreCase("si")) {
 
-                                if (efectivoIngresado <= 0) {
-                                    System.out.println("Error: la cantidad debe ser mayor a 0.");
-                                } else if (efectivoIngresado > porcentajeMaximo) {
-                                    System.out.printf("Error: la cantidad debe ser menor al 60%% (%.2f)\n", porcentajeMaximo);
-                                } else {
-                                    efectivoDepositado = efectivoIngresado;
-                                    System.out.println("Efectivo depositado exitosamente!");
-                                    break;
+                            while (true) {
+                                System.out.println();
+                                System.out.println(">> Efectivo total en caja: " + efectivoTotal);
+                                System.out.println();
+                                System.out.printf(">> Ingrese la cantidad de efectivo que desea depositar en el banco (debe ser menor al 60%% (%.2f) ): ", porcentajeMaximo);
+
+                                try {
+                                    efectivoIngresado = scanner.nextDouble();
+
+                                    if (efectivoIngresado <= 0) {
+                                        System.out.println();
+                                        System.out.println(">> Error: la cantidad debe ser mayor a 0.");
+                                    } else if (efectivoIngresado > porcentajeMaximo) {
+                                        System.out.println();
+                                        System.out.printf(">> Error: la cantidad debe ser menor al 60%% (%.2f): ", porcentajeMaximo);
+                                    } else {
+                                        System.out.println();
+                                        System.out.println(">> Efectivo depositado exitosamente!");
+
+                                        efectivoDepositado += efectivoIngresado;
+                                        efectivoTotal -= efectivoIngresado;
+                                        cajaAbiertaAntes = true;
+                                        cajaAbierta = false;
+                                        break;
+                                    }
+
+                                } catch (InputMismatchException e) {
+                                    System.out.println();
+                                    System.out.println(">> Cantidad inválida. Favor ingrese datos númericos.");
+                                    scanner.next();
                                 }
-
-                            } catch (InputMismatchException e) {
-                                System.out.println("Cantidad inválida. Favor ingrese datos númericos.");
-                                scanner.next();
                             }
 
                         } else {
-                            System.out.println("Regresando al menú principal...");
+                            System.out.println();
+                            System.out.println(">> Regresando al menú principal...");
+                            Thread.sleep(1000);
                         }
 
                         break;
