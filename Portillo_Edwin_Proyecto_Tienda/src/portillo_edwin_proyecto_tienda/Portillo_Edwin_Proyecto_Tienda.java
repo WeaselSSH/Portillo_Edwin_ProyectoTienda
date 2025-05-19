@@ -33,7 +33,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
 
         // Bucle del menú principal que continua hasta que el usuario seleccione la opción 6
         while (opcion != 6) {
-            Thread.sleep(300); //uso de Thread.sleep() con el fin que el usuario sea capaz de ver los outputs de una forma más amigable
+            Thread.sleep(500); //uso de Thread.sleep() con el fin que el usuario sea capaz de ver los outputs de una forma más amigable
             System.out.println();
             System.out.println("+-------------------------------------+");
             System.out.println("|         === MENU PRINCIPAL ===      |");
@@ -45,6 +45,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
             System.out.println("| 5. Cierre de Caja                   |");
             System.out.println("| 6. Salir del Sistema                |");
             System.out.println("+-------------------------------------+");
+            System.out.println();
             System.out.print(">> Seleccione una opción [1-6]: ");
 
             try { //Validar que el dato ingresado sea numerico 
@@ -52,7 +53,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
 
                 switch (opcion) { //switch con las opciones mostradas previamente
                     case 1:
-                        Thread.sleep(300);
+                        Thread.sleep(500);
                         System.out.println();
                         System.out.println("+-------------------------------------+");
                         System.out.println("|           === ABRIR CAJA ===        |");
@@ -79,7 +80,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
 
                         // Actualizar el efectivo total en caja y mostrar los datos
                         efectivoTotal += efectivoIngresado;
-                        Thread.sleep(300);
+                        Thread.sleep(500);
                         System.out.println();
                         System.out.println("+-------------------------------------+");
                         System.out.printf("| %-20s Lps.%10.2f |\n", "Usted guardó:", efectivoIngresado);
@@ -133,7 +134,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                         precioTotalMaiz = 0;
                         precioSubtotal = 0;
 
-                        Thread.sleep(300);
+                        Thread.sleep(500);
                         System.out.println();
                         System.out.println("+-------------------------------------+");
                         System.out.println("|             === VENTAS ===          |");
@@ -152,7 +153,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                         //Bucle de venta de productos
                         continuarComprando = true;
                         while (continuarComprando) {
-                            Thread.sleep(300);
+                            Thread.sleep(500);
                             System.out.println();
                             System.out.println("+-------------------------------------+");
                             System.out.println("|    === SELECCIÓN DE PRODUCTO ===    |");
@@ -166,8 +167,22 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             System.out.print(">> Ingrese el código del producto a comprar: ");
 
                             while (!scanner.hasNextInt()) {
+                                Thread.sleep(500);
                                 System.out.println();
-                                System.out.print(">> Opción inválida. Ingrese un código de producto válido: ");
+                                System.out.println(">> Código de producto inválido.");
+                                
+                                //Se despliega el menú nuevamente 
+                                System.out.println();
+                                System.out.println("+-------------------------------------+");
+                                System.out.println("|    === SELECCIÓN DE PRODUCTO ===    |");
+                                System.out.println("+-------------------------------------+");
+                                System.out.println("| 1. Azúcar                           |");
+                                System.out.println("| 2. Avena                            |");
+                                System.out.println("| 3. Trigo                            |");
+                                System.out.println("| 4. Maíz                             |");
+                                System.out.println("+-------------------------------------+");
+                                System.out.println();
+                                System.out.print(">> Ingrese el código del producto a comprar: ");
                                 scanner.next();
                             }
                             codigoProducto = scanner.nextInt();
@@ -411,7 +426,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
 
                             numeroFacturaVentas++;
 
-                            Thread.sleep(300);
+                            Thread.sleep(500);
                             System.out.println();
                             System.out.println("+-------------------------------------+");
                             System.out.println("|                FACTURA              |");
@@ -497,7 +512,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                          precioCompraAvenaC = 22,
                          precioCompraTrigo = 30,
                          precioCompraMaiz = 18,
-                         precioAvenaFacturar = 0;
+                         precioAvenaFacturar;
 
                         precioTotalAzucar = 0;
                         precioTotalAvena = 0;
@@ -527,7 +542,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                         //Bucle de compra de productos
                         continuarComprando = true;
                         while (continuarComprando) {
-                            Thread.sleep(300);
+                            Thread.sleep(500);
                             System.out.println();
                             System.out.println("+-------------------------------------+");
                             System.out.println("|    === SELECCIÓN DE PRODUCTO ===    |");
@@ -541,8 +556,22 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             System.out.print(">> Ingrese el código del producto a comprar: ");
 
                             while (!scanner.hasNextInt()) {
+                                Thread.sleep(500);
                                 System.out.println();
-                                System.out.print(">> Opción inválida. Ingrese un código de producto válido: ");
+                                System.out.println(">> Código de producto inválido.");
+                                
+                                //Se despliega el menú nuevamente 
+                                System.out.println();
+                                System.out.println("+-------------------------------------+");
+                                System.out.println("|    === SELECCIÓN DE PRODUCTO ===    |");
+                                System.out.println("+-------------------------------------+");
+                                System.out.println("| 1. Azúcar                           |");
+                                System.out.println("| 2. Avena                            |");
+                                System.out.println("| 3. Trigo                            |");
+                                System.out.println("| 4. Maíz                             |");
+                                System.out.println("+-------------------------------------+");
+                                System.out.println();
+                                System.out.print(">> Ingrese el código del producto a comprar: ");
                                 scanner.next();
                             }
                             codigoProducto = scanner.nextInt();
@@ -595,6 +624,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                     break;
 
                                 default:
+                                    System.out.println();
                                     System.out.println(">> Código de producto inválido.");
                                     permitido = false;
                                     break;
@@ -660,7 +690,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             inventarioAvena += kilosAvenaComprados;
                             inventarioTrigo += kilosTrigoComprados;
                             inventarioMaiz += kilosMaizComprados;
-                            
+
                             efectivoTotal -= precioTotal; //se resta el efectivo en caja
 
                             //Acorde al tipo de cliente, se despliega un valor u otro al producto avena
@@ -764,14 +794,19 @@ public class Portillo_Edwin_Proyecto_Tienda {
                         break;
 
                     case 6:
-                        System.out.println("Saliendo del sistema...");
+                        Thread.sleep(500);
+                        System.out.println();
+                        System.out.println(">> Saliendo del sistema...");
+                        Thread.sleep(1000);
                         break;
 
                     default:
-                        System.out.println("Opción inválida.");
+                        System.out.println();
+                        System.out.println(">> Opción inválida.");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Opción inválida. Favor ingresar unicamente números enteros.");
+                System.out.println();
+                System.out.println(">> Opción inválida. Favor ingresar unicamente números enteros.");
                 scanner.next();
             }
         }
