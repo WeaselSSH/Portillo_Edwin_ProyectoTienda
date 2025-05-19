@@ -230,9 +230,9 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                         System.out.println();
                                         System.out.print(">> ¿Desea seguir comprando? (si/no): ");
                                         seguirComprando = scanner.next().strip();
-                                        
+
                                         //Bucle para validar que el usuario ingrese una opción correcta
-                                        while (!seguirComprando.equalsIgnoreCase("si") && !seguirComprando.equalsIgnoreCase("no")) { 
+                                        while (!seguirComprando.equalsIgnoreCase("si") && !seguirComprando.equalsIgnoreCase("no")) {
                                             System.out.print(">> Entrada inválida. Escriba 'si' para sí o 'no' para no: ");
                                             seguirComprando = scanner.next().strip();
                                         }
@@ -938,12 +938,16 @@ public class Portillo_Edwin_Proyecto_Tienda {
                                 try {
                                     efectivoIngresado = scanner.nextDouble();
 
-                                    if (efectivoIngresado <= 0) {
+                                    if (efectivoIngresado < 0) {
                                         System.out.println();
                                         System.out.println(">> Error: la cantidad debe ser mayor a 0.");
                                     } else if (efectivoIngresado > porcentajeMaximo) {
                                         System.out.println();
                                         System.out.printf(">> Error: la cantidad debe ser menor al 60%% (%.2f): ", porcentajeMaximo);
+                                    } else if (efectivoIngresado == 0) {
+                                        System.out.println();
+                                        System.out.println(">> No se depositó efectivo.");
+                                        break;
                                     } else {
                                         System.out.println();
                                         System.out.println(">> Efectivo depositado exitosamente!");
@@ -985,6 +989,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
                         break;
 
                     case 6:
+                        //Verificación que caja haya sido cerrada antes de salir
                         Thread.sleep(500);
                         System.out.println();
                         System.out.println(">> Saliendo del sistema...");
