@@ -37,7 +37,7 @@ public class Portillo_Edwin_Proyecto_Tienda {
 
         double descuento, precioTotal, isv, totalCompra, cantidadKilos, precioSubtotal, precioUnitario = 0;
         double precioTotalAzucar, precioTotalAvena, precioTotalTrigo, precioTotalMaiz;
-        double inventarioAzucar = 10, inventarioAvena = 0, inventarioTrigo = 0, inventarioMaiz = 0;
+        double inventarioAzucar = 0, inventarioAvena = 0, inventarioTrigo = 0, inventarioMaiz = 0;
 
         //Menú de inicio
         System.out.println();
@@ -478,25 +478,25 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             //Mostrar datos de los proudctos comprados por el cliente
                             if (kilosAzucarVendidos > 0) {
                                 System.out.println("+-------------------------------------+");
-                                System.out.printf("| Azúcar:            Kg. %13.2f |\n", kilosAzucarVendidos); //alinear texto a la derechar
+                                System.out.printf("| Azúcar:            Kg. %12.2f |\n", kilosAzucarVendidos); //alinear texto a la derecha
                                 System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioVentaAzucar);
                                 System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalAzucar);
                             }
                             if (kilosAvenaVendidos > 0) {
                                 System.out.println("+-------------------------------------+");
-                                System.out.printf("| Avena:             Kg. %13.2f |\n", kilosAvenaVendidos);
+                                System.out.printf("| Avena:             Kg. %12.2f |\n", kilosAvenaVendidos);
                                 System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioVentaAvena);
                                 System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalAvena);
                             }
                             if (kilosTrigoVendidos > 0) {
                                 System.out.println("+-------------------------------------+");
-                                System.out.printf("| Trigo:             Kg. %13.2f |\n", kilosTrigoVendidos);
+                                System.out.printf("| Trigo:             Kg. %12.2f |\n", kilosTrigoVendidos);
                                 System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioVentaTrigo);
                                 System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalTrigo);
                             }
                             if (kilosMaizVendidos > 0) {
                                 System.out.println("+-------------------------------------+");
-                                System.out.printf("| Maíz:              Kg. %13.2f |\n", kilosMaizVendidos);
+                                System.out.printf("| Maíz:              Kg. %12.2f |\n", kilosMaizVendidos);
                                 System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioVentaMaiz);
                                 System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalMaiz);
                             }
@@ -757,25 +757,25 @@ public class Portillo_Edwin_Proyecto_Tienda {
                             //Mostrar datos de los proudctos comprados por el cliente
                             if (kilosAzucarComprados > 0) {
                                 System.out.println("+-------------------------------------+");
-                                System.out.printf("| Azúcar:            Kg. %13.2f |\n", kilosAzucarComprados); //alinear texto a la derechar
+                                System.out.printf("| Azúcar:            Kg. %12.2f |\n", kilosAzucarComprados); //alinear texto a la derecha
                                 System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioCompraAzucar);
                                 System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalAzucar);
                             }
                             if (kilosAvenaComprados > 0) {
                                 System.out.println("+-------------------------------------+");
-                                System.out.printf("| Avena:             Kg. %13.2f |\n", kilosAvenaComprados);
+                                System.out.printf("| Avena:             Kg. %12.2f |\n", kilosAvenaComprados);
                                 System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioAvenaFacturar);
                                 System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalAvena);
                             }
                             if (kilosTrigoComprados > 0) {
                                 System.out.println("+-------------------------------------+");
-                                System.out.printf("| Trigo:             KG %13.2f |\n", kilosTrigoComprados);
+                                System.out.printf("| Trigo:             KG %12.2f |\n", kilosTrigoComprados);
                                 System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioCompraTrigo);
                                 System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalTrigo);
                             }
                             if (kilosMaizComprados > 0) {
                                 System.out.println("+-------------------------------------+");
-                                System.out.printf("| Maíz:              Kg. %13.2f |\n", kilosMaizComprados);
+                                System.out.printf("| Maíz:              Kg. %12.2f |\n", kilosMaizComprados);
                                 System.out.printf("| Precio Unitario:   Lps. %11.2f |\n", precioCompraMaiz);
                                 System.out.printf("| Total:             Lps. %11.2f |\n", precioTotalMaiz);
                             }
